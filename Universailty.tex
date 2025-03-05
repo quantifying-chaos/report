@@ -1,17 +1,18 @@
 \section{Feigenbaum's Theory of Scaling}
 
-The whole of bifurcation theory is spectacular; even more amazing are the Feigenbaum constants $\alpha$ and $\beta$, whose existence and universality are demonstrated by the numerics in table \ref{tab:feigenbuam_alpha_table_for_logistic} and \ref{tab:feigenbuam_constants_skewed_logistic_map}.
+The whole of bifurcation theory is spectacular; even more amazing are the Feigenbaum constants $\alpha$ and $\delta$, whose existence and universality are demonstrated by the numerics in table \ref{tab:feigenbuam_alpha_table_for_logistic} and \ref{tab:feigenbuam_constants_skewed_logistic_map}. 
+The existence of universal constants across a wide class of chaotic dynamical systems is a quintessential quantifiable property of chaos.
 The proof that these constants exist and are universal is well beyond the scope of this undergraduate project, but we can give some rational argument as to the existence of $\alpha$.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.6\linewidth]{Images/demonstration of feigenbaum constants.png}
-    \caption{Bifurcation diagram of the logistic map which shows the location for $A_n$ and $d_n$ for the first 3 period doubling bifurcations.}
+    \caption{Bifurcation diagram of the logistic map, which shows the location of four parameter values $A_n$ which correspond to where each $2^n$ cycle achieves superstability. The distances $d_{n+1}$ are those between $X_m$ and the closest point in the cycle.}
 	\label{fig: universal raito}
 \end{figure} 
 
 Recall that $\alpha = \lim_{i \rightarrow  \infty}\frac{b_i}{b_{i-1}}$. 
-For a given iterative map $F$, depending on one parameter satisfying the requirement of \ref{th:criteria_for_infinite_bifurcations}, $b_i$ is the distance at the superstability of the $2^{i}$ cycle between $X_{m}$ and its closest point in the cycle, where $X_m$ is the unique maximum of $F$.
+For a given iterative map $F$, depending on one parameter satisfying the requirement of \ref{th:criteria_for_infinite_bifurcations}, $d_i$ is the distance at the superstability of the $2^{i}$ cycle between $X_{m}$ and its closest point in the cycle, where $X_m$ is the unique maximum of $F$.
 
 Writing it in another way
 \begin{equation}\label{eq:d_sim}
@@ -19,7 +20,7 @@ d_r \sim\frac{D}{(-\alpha)^r} \quad \quad \text{ as } r \to \infty
 \end{equation}
 where $D$ is a constant depending on $F$ and $\alpha$ is the Feigenbaum's constants. 
 
-Theorem \ref{th:logistic_bifurcation}.\ref{log_closest_branch} states that $d_i = F^{2^{n-1}}(A_i, X_m) - X_m$, where $A_i$ is the value of the parameter at which the $2^n$ cycle achieves superstability and crosses $X_m$ (see figure \ref{fig: universal raito}). 
+Theorem \ref{th:logistic_bifurcation}.\ref{log_closest_branch} states that $d_i = F^{2^{n-1}}(A_i, X_m) - X_m$, where $A_i$ is the value of the parameter at which the $2^n$ cycle achieves superstability and crosses $X_m$. An example of these distances is shown in figure \ref{fig:universal ratio}.
 Therefore, to find the scaling of $d_r$, we take the limit of \eqref{eq:d_sim},
 
 \begin{equation}
@@ -60,17 +61,24 @@ This then implies that $Tg_k(x)=g_{k-1}(x)$ for $k = 2,3,...$ where we have show
 \begin{align}
     g_k=\lim_{r \to \infty} \{(-\alpha)^{r}F^{2r}(A_{r+k}, x/(-\alpha)^{r})\}. \label{eq:two}
 \end{align} 
-As $k \to \infty$ we can show that there could exist a function $g(x)= \lim_{k \to \infty}g_k(x)$ such that we can create the functional equation,
+We can now take the limit as $k \to \infty$ to show that there exists a function $g(x)= \lim_{k \to \infty}g_k(x)$ such that  the functional equation,
 \begin{align}
     Tg=g \label{eq:FunctionalOperator}
 \end{align}
-such that we can say there exists a `fixed point' $g$ of the nonlinear functional operator $T$. This tells us that when we apply $T$ to $g$, this doesn't change the inherent properties of $g$. 
+holds. We can then say there exists a `fixed point' $g$ of a nonlinear functional operator T.
 
 Using the functional equation \eqref{eq:FunctionalOperator}, the constant $\alpha$ must be determined as part of the solution. The function $g(x)$ satisfies this functional equation, and it possesses a scaling symmetry, such that if $g(x)$ is a solution, then the rescaled function $\mu g(x/\mu)$ is also a solution for any $\mu \neq 0$. This scaling symmetry implies that there is an inherent freedom in the choice of the parameter $\mu$, meaning the solution is not unique until this freedom is constrained. To fix $\mu$ and ensure a unique solution, we adopt a convention by selecting a specific value of $\mu$ such that the function $g(x)$ satisfies a normalisation condition. Once this value of $\mu$ is chosen, the functional equation determines the value of the constant $\alpha$. Although $\alpha$ can be obtained numerically through the solution of the difference equations, its formal derivation comes from solving the functional equation under the chosen normalisation. Thus for the function $g(x)$ that corresponds to the desired map, we can choose a particular $\mu$ such that,
 $$
 g(0)=1
 $$
-and by setting $x=0$ in the functional equation and via the original definition of our operator we have it that,
+by choosing a particular $\mu$ such that,
+$$
+g(0)=1.
+$$
+Setting $x=0$ in the functional equation, we have, by the original definition  of our operator,
+$$
+\alpha = -1/g(1).
+$$
 $$
 \alpha = -1/g(1)
 $$
@@ -101,14 +109,16 @@ that corresponds to the desired $\alpha =-1/g(1)=2.5029$.
     
 
     The blue line shows us Feigenbaum's numerically solved solution \eqref{eq:feigenbaum} while the rest of the lines show us the iterations of $r$ for specified $k$ values. 
-	We can see that our results produce a correct solution; as we iterate $r$, we can see that our plots converge. However, we can clearly see that our plots don't converge to the desired solution found by Feigenbaum \eqref{eq:feigenbaum}. Since we know, by the universality of the approach, that there exists a scaling factor. From the non linear function operator \eqref{eq:FunctionalOperator}, there exists some scaling factor $\mu$. Thus our solution corresponding to the logistic map has an equivalent solution that matches the one found by Feigenbaum. Since we know $g(0)=1$, we have that $Tg(0)=\mu g(0)$ implies $\mu = 1/g(0)$, where $g(0)$ here is our map's solved unscaled value at 0. From our findings, we found that our value of $g(0)$ is $0.39176186028018406$ such that the corresponding scaling factor was found to be $\mu= 2.552571093277968$. Now that we have our new rescaled function $g(x)$, we can plot the iterations of $r$ and $k$. The results are shown in Figure \ref{fig:rescaled}.
+	We can see that our results produce a correct solution; as we iterate $r$, we can see that our plots converge. However, we can clearly see that our plots don't converge to the desired solution found by Feigenbaum \eqref{eq:feigenbaum}. From the non linear function operator \eqref{eq:FunctionalOperator}, we have that there exists some scaling factor $\mu$ such that $\mu g(x/\mu)$ is also a solution.Thus our solution corresponding to the logistic map has an equivalent solution that matches the one found by Feigenbaum. Since we know $g(0)=1$, we have that $Tg(0)=\mu g(0)$ implies $\mu = 1/g(0)$, where $g(0)$ here is our map's solved unscaled value at 0. 
+    % TODO
+    From our findings, we found that our value of $g(0)$ is $0.39176186028018406$ such that the corresponding scaling factor was found to be $\mu= 2.552571093277968$. Now that we have our new rescaled function $g(x)$, we can plot the iterations of $r$ and $k$. The results are shown in Figure \ref{fig:rescaled}.
     \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{Feigenbaum Approx Graphs/Images/fiegenbaum_scaled.png}
     \caption{Rescaled graphs corresponding to the logistic map}
     \label{fig:rescaled}
 \end{figure}
-The blue lines again show us Feigenbaum's numerically solved solution \eqref{eq:feigenbaum}. We can now see that due to $\mu$, our rescaled $g(x)$ now shifts up towards the true solution and attains the desired shape showing us that we have successfully rescaled our original solution to the universal one presented by Feigenbaum. Thus we have demonstrated the convergence described by Feigenbaum towards his numerical solution as well as the existence of a limiting function $g(x)$ as we increase both $r$ and $k$ simultaneously. 
+The blue lines again show us Feigenbaum's numerically solved solution \eqref{eq:feigenbaum}. We can now see that due to $\mu$, our rescaled $g(x)$ now shifts up towards Feigenbaum's solution and attains the desired shape showing us that we have successfully rescaled our original solution to the universal one presented by Feigenbaum. Thus we have demonstrated the convergence described by Feigenbaum towards his numerical solution as well as the existence of a limiting function $g(x)$ as we increase both $r$ and $k$ simultaneously. 
 \end{exmp}
 
 

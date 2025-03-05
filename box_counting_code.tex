@@ -40,15 +40,17 @@ def draw_blue_boxes(x_vals, y_vals, box_size, ax, xlim, ylim):
                                          fill=False, edgecolor='blue', lw=0.5)
                 ax.add_patch(rect)
 
-# Count the number of occupied boxes for some box size, given by the length of one 
+# Count the number of occupied boxes for some box size, which is the x-length of one box
 def count_boxes(x_vals, y_vals, box_size, xlim, ylim):
     x_edges = np.arange(xlim[0], xlim[1] + box_size, box_size)
     y_edges = np.arange(ylim[0], ylim[1] + box_size/3.5, box_size/3.5)
     H, _, _ = np.histogram2d(x_vals, y_vals, bins=[x_edges, y_edges])
     return np.sum(H > 0)
 
-# Compute box-counting dimension and plot log-log graph
 def compute_box_counting_dimension(x_vals, y_vals, xlim, ylim):
+    """
+    Compute box-counting dimension and plot log-log graph
+    """
     box_sizes = np.logspace(-1, 0, num=10)
     counts = [count_boxes(x_vals, y_vals, bs, xlim, ylim) for bs in box_sizes]
     log_inv_bs = np.log(1 / np.array(box_sizes))
@@ -66,17 +68,14 @@ def compute_box_counting_dimension(x_vals, y_vals, xlim, ylim):
     
     return slope
 
-# Main script
-# Generate the Henon attractor points (with burn-in)
+# Plot required graphs:
 x_vals, y_vals = henon_attractor(n_points=10000000, burn=10000)
 
 xlim = (np.min(x_vals), np.max(x_vals))
 ylim = (-0.4, 0.4)
 
-# Create three subplots with three different box sizes (from large to small)
 fig, axs = plt.subplots(1, 3, figsize=(18, 7))
 
-# Define three representative box sizes (you can adjust these values)
 box_sizes = [0.1, 0.05, 0.02]
 titles = [f"Box size = {bs:.2f}" for bs in box_sizes]
 

@@ -105,7 +105,7 @@ For stable systems, two types of attractors are: fixed points, a state of equili
 %Given a system that is not stable, the trajectories may diverge. In a confined space, we have the example of a fluid mixing in a box, and we say that the attractor of this system is the whole three-dimensional space.
 For chaotic systems, things are different. Since we have a strong sensitivity to initial conditions, even stable points can become unstable at the slightest perturbation due to the existence of a positive Lyapunov exponent. This means we cannot define the set so easily since a minor change to one initial point could greatly affect its outcome over time. This being said, we may not have complete divergence since we can plot the trajectories after a high number of iterations and still see a distinct set. Furthermore, zooming in to these attractors, we see that they can take the form of fractals. 
 
-These properties have coined the term `strange' attractors\cite{feldman2012chaos} since they show convergence of a system that seems to never settle down. To better understand strange attractors, a staple example is the Hénon map\cite{nonlinear_system}, a simplified section of the famous Lorenz system.
+These properties have coined the term `strange' attractors\cite{feldman2012chaos} since they paradoxically show convergence of a system that seems to never settle down. Thus the term \emph{strange attractor} describes attractors of dynamical systems that observe a sensitive dependence to initial conditions and a fractal structure. To better understand strange attractors, a staple example is the Hénon map\cite{nonlinear_system}, a simplified section of the famous Lorenz system.
 \begin{exmp}
     We define the Hénon map, which acts on points $(x,y)\in \mathbb{R}^2$, as the discrete-time dynamical system, 
     \[
@@ -132,15 +132,17 @@ x_{n+1} = 1 - a x_n^2 + y_n, \quad y_{n+1} = b x_n.
         \caption{Zooming in to the blue boxes on the Hénon attractor to see the fractal structure of the object.}
         \label{fig:Henon3}
     \end{figure}
-    Since the attractor has a sensitive dependence on initial conditions and a fractal structure, we conclude that indeed this is a strange attractor by our definition.
+    Since the attractor has a sensitive dependence on initial conditions and a fractal structure, we conclude that this indeed is a strange attractor.
 \end{exmp}
 From this example, it is clear that the mass-scaling factor method of determining fractal dimension will no longer be of use, since we cannot simply find a smaller version of the Hénon map inside itself, let alone determine its mass-scaling factor. However, the idea of how the attractor fills space will motivate a new method for approximating the value.\\
 
 Motivated by the need for a universal method for calculating fractal dimension, the following method can be used to approximate the fractal dimension of any object in some subset of $\mathbb{R}^n$. The idea is, given some complicated object, we measure the amount of space it fills as we zoom into its structure. We do this by overlaying a grid of $n$-dimensional boxes over the object and counting how many boxes it is contained in. We then decrease the size of the boxes and count again, repeating this process a number of times. With the results, we plot the logarithms of the number of boxes against the size of the boxes and take the slope of best fit to be the fractal dimension. Explicitly, we have a formula
-$$D = \lim_{\epsilon \to 0} \frac{\log N(\epsilon)}{\log(1/\epsilon)},$$
-where $\epsilon$ is the size of each box (length of one $n$-cube) and $N(\epsilon)$ is the number of boxes the object is contained in for each $\epsilon$. For complicated objects, the best way to do this is by use of computer code that will do this whole process to a strong level of accuracy. We return to the previous example to calculate the fractal dimension of the Hénon attractor.
+\begin{equation}
+    D = \lim_{\epsilon \to 0} \frac{\log N(\epsilon)}{\log(1/\epsilon)},
+\end{equation}\label{boxcountingD}
+where $\epsilon$ is the size of each box (length of one side of one $n$-cube) and $N(\epsilon)$ is the number of boxes that the object is contained in for each $\epsilon$. For complicated objects, the best way to do this is by use of computer code that will do this whole process to a strong level of accuracy. It must be noted that formula \ref{boxcountingD} may not be valid in practice, since it is only realistic to plot a finite number of points in Python. Therefore, we must be careful in ch, or else the box-count will `bottom-out' . We return to the previous example to calculate the fractal dimension of the Hénon attractor by the box-counting method.
 \begin{exmp}
-    Using Python, we calculate the fractal dimension of the Hénon attractor. The code overlays a grid of boxes over the fractal and counts the number of boxes that contain it as the box size decreases. In Figure \ref{fig:Henon4}, we see the blue boxes that contain the attractor as their size decreases.
+    Using Python, we calculate the fractal dimension of the Hénon attractor by following the box-counting method. The code overlays a grid of boxes over the fractal and counts the number of boxes that contain it as the box size decreases. In Figure \ref{fig:Henon4}, we see some blue boxes that contain the attractor as their size decreases.
     \begin{figure}
         \centering
         \includegraphics[width=1\linewidth]{Images/Henon boxes.png}
