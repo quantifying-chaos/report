@@ -6,16 +6,8 @@ import matplotlib.patches as patches
 # Define the Henon map function
 def henon_attractor(a=1.4, b=0.3, n_points=10000000, burn=10000):
     """
-    Generate points from the Henon attractor, discarding the first 'burn' iterations.
+    Generates a number of points from the Henon attractor, with standard parameters, discarding some early iterations.
     
-    Parameters:
-        a (float): Parameter a of the Henon map.
-        b (float): Parameter b of the Henon map.
-        n_points (int): Number of points to generate after burn-in.
-        burn (int): Number of initial iterations to discard.
-    
-    Returns:
-        tuple: Arrays of x and y coordinates.
     """
     x, y = 0, 0  # Initial conditions
     x_vals, y_vals = [], []
@@ -27,20 +19,19 @@ def henon_attractor(a=1.4, b=0.3, n_points=10000000, burn=10000):
             y_vals.append(y)
     return np.array(x_vals), np.array(y_vals)
 
-# Draw blue boxes (grid cells) that contain at least one attractor point.
+=
 def draw_blue_boxes(x_vals, y_vals, box_size, ax, xlim, ylim):
     """
-    Draw grid boxes of side length 'box_size' over the attractor.
-    For each grid cell that contains one or more points, a blue rectangle is drawn.
+    Create a grid and find boxes that contain at least one point from the attractor, colour these boxes blue and discard the rest.
     """
-    # Create grid edges using the fixed axis limits
+    # Create grid edges using the fixed axis limits, and rescale the y edges so that the boxes appear sqaure for presentation (this does not affect our results)
     x_edges = np.arange(xlim[0], xlim[1] + box_size, box_size)
     y_edges = np.arange(ylim[0], ylim[1] + box_size/3.5, box_size/3.5)
     
     # Compute a 2D histogram to determine occupancy of each grid cell
     H, x_edges, y_edges = np.histogram2d(x_vals, y_vals, bins=[x_edges, y_edges])
     
-    # For each grid cell that contains at least one point, draw a blue rectangle
+    # For each grid cell that contains at least one point, draw a blue box
     for i in range(H.shape[0]):
         for j in range(H.shape[1]):
             if H[i, j] > 0:
@@ -49,7 +40,7 @@ def draw_blue_boxes(x_vals, y_vals, box_size, ax, xlim, ylim):
                                          fill=False, edgecolor='blue', lw=0.5)
                 ax.add_patch(rect)
 
-# Count the number of occupied boxes for different box sizes
+# Count the number of occupied boxes for some box size, given by the length of one 
 def count_boxes(x_vals, y_vals, box_size, xlim, ylim):
     x_edges = np.arange(xlim[0], xlim[1] + box_size, box_size)
     y_edges = np.arange(ylim[0], ylim[1] + box_size/3.5, box_size/3.5)

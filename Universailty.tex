@@ -1,7 +1,7 @@
 \section{Feigenbaum's Theory of Scaling}
 
-The whole of bifurcation theory is spectacular, even more amazing is the Feigenbuam constants $\alpha$ and $\beta$, whose existance and universality is demonstrated by the numerics in table \ref{tab:feigenbuam_alpha_table_for_logistic} and \ref{tab:feigenbuam_constants_skewed_logistic_map}.
-The proof that these constants exist and are universal is well beyond the scope of this undergraduate project, but we can give some rational argument as to the existance of $\alpha$.
+The whole of bifurcation theory is spectacular; even more amazing are the Feigenbaum constants $\alpha$ and $\beta$, whose existence and universality are demonstrated by the numerics in table \ref{tab:feigenbuam_alpha_table_for_logistic} and \ref{tab:feigenbuam_constants_skewed_logistic_map}.
+The proof that these constants exist and are universal is well beyond the scope of this undergraduate project, but we can give some rational argument as to the existence of $\alpha$.
 
 \begin{figure}
     \centering
@@ -11,19 +11,19 @@ The proof that these constants exist and are universal is well beyond the scope 
 \end{figure} 
 
 Recall that $\alpha = \lim_{i \rightarrow  \infty}\frac{b_i}{b_{i-1}}$. 
-For a given iterative map $F$ depending one paramter satisfying the requirement of \ref{th:criteria_for_infinite_bifurcations}, $b_i$ is the distance at the superstability of the $2^{i}$ cycle between $X_{m}$ and its closest point in the cycle, where $X_m$ is the unique maximum of $F$.
+For a given iterative map $F$, depending on one parameter satisfying the requirement of \ref{th:criteria_for_infinite_bifurcations}, $b_i$ is the distance at the superstability of the $2^{i}$ cycle between $X_{m}$ and its closest point in the cycle, where $X_m$ is the unique maximum of $F$.
 
 Writing it in another way
 \begin{equation}\label{eq:d_sim}
 d_r \sim\frac{D}{(-\alpha)^r} \quad \quad \text{ as } r \to \infty
 \end{equation}
-where $D$ are constants which are dependent on $F$ and $\alpha$ is the Feigenbaum's constants. 
+where $D$ is a constant depending on $F$ and $\alpha$ is the Feigenbaum's constants. 
 
 Theorem \ref{th:logistic_bifurcation}.\ref{log_closest_branch} states that $d_i = F^{2^{n-1}}(A_i, X_m) - X_m$, where $A_i$ is the value of the parameter at which the $2^n$ cycle achieves superstability and crosses $X_m$ (see figure \ref{fig: universal raito}). 
-So \eqref{eq:d_sim} becomes
+Therefore, to find the scaling of $d_r$, we take the limit of \eqref{eq:d_sim},
 
 \begin{equation}
-\lim_{r \to \infty} (-\alpha)^r \left(F^{2^r}(A_{r+1}, X_m) - X_m\right) = - \frac{D}{\alpha}
+\lim_{r \to \infty} (-\alpha)^r \left(F^{2^r}(A_{r+1}, X_m) - X_m\right) = - \frac{D}{\alpha}.
 \end{equation}
 
 This leads to the hypothesis that
@@ -32,7 +32,7 @@ g_1(x-X_m)=\lim_{r \to \infty} \{g_{1r}(x-X_m)\},
 $$
 where
 $$
-g_{1r}(x-X_m) = (-\alpha)^r \{F^{2r}(A_{r+1}, X_m + \frac{x-X_m}{(-\alpha)^r})-X_m
+g_{1r}(x-X_m) = (-\alpha)^r \{F^{2r}(A_{r+1}, X_m + (x-X_m)/(-\alpha)^r)-X_m\}.
 $$
 Let $x-X_m$ be the difference from the point of superstability about the bifurcation to $X_m$. 
 From the scaling of $d_r$, this implies that $g_1(0)=-\frac{D}{\alpha}$ and by solving for the first couple of iterations of $g_{1r}(x-X_m)$, we can see a limit emerge for $g_1$.
@@ -58,7 +58,7 @@ Now, if we set $\phi(y)=(-\alpha)^rF^{2r}(A_{r+1},y/(-\alpha)^r))\}$ such that $
 \end{align*}
 This then implies that $Tg_k(x)=g_{k-1}(x)$ for $k = 2,3,...$ where we have shown that,
 \begin{align}
-    g_k=\lim_{r \to \infty} \{(-\alpha)^{r}F^{2r}(A_{r+k}, x/(-\alpha)^{r})\} \label{eq:two}
+    g_k=\lim_{r \to \infty} \{(-\alpha)^{r}F^{2r}(A_{r+k}, x/(-\alpha)^{r})\}. \label{eq:two}
 \end{align} 
 As $k \to \infty$ we can show that there could exist a function $g(x)= \lim_{k \to \infty}g_k(x)$ such that we can create the functional equation,
 \begin{align}
@@ -75,9 +75,9 @@ $$
 \alpha = -1/g(1)
 $$
 
-Feigenbaum was able to numerically verify the method where he found that,
+Feigenbaum was able to numerically verify the method, where he found that
 \begin{align}
-    g(x)= 1 - 1.52763x^2 + 0.10482x^4- 0.02671x^6 + \dots \label{eq:feigenbaum}
+    g(x)= 1 - 1.52763x^2 + 0.10482x^4- 0.02671x^6 + \dots .\label{eq:feigenbaum}
 \end{align}
 that corresponds to the desired $\alpha =-1/g(1)=2.5029$.
 
@@ -89,47 +89,35 @@ that corresponds to the desired $\alpha =-1/g(1)=2.5029$.
         g_{11}&=(-\alpha)F^2(A_2,x/(-\alpha)) \nonumber \\
         &= \alpha A_2 \left(\left(A_2 \left(x^{2}/\alpha^2 - 1/4\right) + 1/2\right)^{2} - 1/4\right) + \alpha/2
     \end{align}
-    Thus for $g_{1r}(x)$ we can plot our findings as $r \to \infty$ in the $x, y$ plane where $y=g_{1r}(x)$. 
-	When we present our first couple of plots we can see a clear limiting function $g_{k=1}$ as $r$ increases. Thus from \eqref{eq:two} we can see that, as we increase $k$, the sequence of functions converges to some function $g(x)$. 
+    Thus, for $g_{1r}(x)$, we can plot our findings as $r \to \infty$ in the $x, y$ plane where $y=g_{1r}(x)$. 
+	When we present our first couple of plots, we can see a clear limiting function $g_{k=1}$ appearing as $r$ increases. Thus from \eqref{eq:two} we can see that, as we increase $k$, the sequence of functions converges to some function $g(x)$. 
 	We can see the behaviour of our results in the plots in Figure \ref{fig:unscaled}.
 	\begin{figure}
     \centering
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/Unscaled Graphs/us k=0.png}
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/Unscaled Graphs/us k=1.png}
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/Unscaled Graphs/us k=2.png}
-    \\
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/Unscaled Graphs/us k=3.png}
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/Unscaled Graphs/us k=4.png}
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/Unscaled Graphs/us k=5.png}
+    \includegraphics[width=1\textwidth]{Feigenbaum Approx Graphs/Images/feigenbaum.png}
     \caption{Unscaled graphs corresponding to the logistic map}
     \label{fig:unscaled}
 \end{figure}
     
 
     The blue line shows us Feigenbaum's numerically solved solution \eqref{eq:feigenbaum} while the rest of the lines show us the iterations of $r$ for specified $k$ values. 
-	We can see that our results produce a correct solution; as we iterate $r$, we can see that our plots converge. Alternatively, we can clearly see that our plots don't converge to the desired solution found by Feigenbaum \eqref{eq:feigenbaum}. Since we know, by the universality of the approach, that there exists a scaling factor. From the non linear function operator \eqref{eq:FunctionalOperator} there exists some scaling factor $\mu$. Thus our solution corresponding to the logistic map has an equivalent solution that matches the one found by Feigenbaum. Since we know $g(0)=1$, we have that $Tg(0)=\mu g(0)$ implies $\mu = 1/g(0)$, where $g(0)$ here is our map's solved unscaled value at 0. From our findings, we found that our value of $g(0)$ is $0.39176186028018406$ such that the corresponding scaling factor was found to be $\mu= 2.552571093277968$. Now that we have our new rescaled function $g(x)$, we can plot the iterations of $r$ and $k$. The results are shown in Figure \ref{fig:rescaled}.
+	We can see that our results produce a correct solution; as we iterate $r$, we can see that our plots converge. However, we can clearly see that our plots don't converge to the desired solution found by Feigenbaum \eqref{eq:feigenbaum}. Since we know, by the universality of the approach, that there exists a scaling factor. From the non linear function operator \eqref{eq:FunctionalOperator}, there exists some scaling factor $\mu$. Thus our solution corresponding to the logistic map has an equivalent solution that matches the one found by Feigenbaum. Since we know $g(0)=1$, we have that $Tg(0)=\mu g(0)$ implies $\mu = 1/g(0)$, where $g(0)$ here is our map's solved unscaled value at 0. From our findings, we found that our value of $g(0)$ is $0.39176186028018406$ such that the corresponding scaling factor was found to be $\mu= 2.552571093277968$. Now that we have our new rescaled function $g(x)$, we can plot the iterations of $r$ and $k$. The results are shown in Figure \ref{fig:rescaled}.
     \begin{figure}
     \centering
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/k=0.png}
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/k=1.png}
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/k=2.png}
-    \\
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/k=3.png}
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/k=4.png}
-    \includegraphics[width=0.3\textwidth]{Feigenbaum Approx Graphs/k=5.png}
+    \includegraphics[width=1\textwidth]{Feigenbaum Approx Graphs/Images/fiegenbaum_scaled.png}
     \caption{Rescaled graphs corresponding to the logistic map}
     \label{fig:rescaled}
 \end{figure}
-The blue lines again show us Feigenbaum's numerically solved solution \eqref{eq:feigenbaum}. We can now see that due to $\mu$, our newly plotted rescaled $g(x)$ now shifts up towards the true solution and attains the desired shape showing us that we have successfully rescaled our original solution to the universal one presented by Feigenbaum. Thus we have demonstrated the convergence described by Feigenbaum towards his numerical solution as well as the existence of a limiting function $g(x)$ as we increase both $r$ and $k$ simultaneously. 
+The blue lines again show us Feigenbaum's numerically solved solution \eqref{eq:feigenbaum}. We can now see that due to $\mu$, our rescaled $g(x)$ now shifts up towards the true solution and attains the desired shape showing us that we have successfully rescaled our original solution to the universal one presented by Feigenbaum. Thus we have demonstrated the convergence described by Feigenbaum towards his numerical solution as well as the existence of a limiting function $g(x)$ as we increase both $r$ and $k$ simultaneously. 
 \end{exmp}
 
 
 \section{Numerical Computation of Eigenfunction of $T$}
 
-To make the above section rigorous and prove the existance of an eigenfunction of the operator $T$ is non-trivial and requires a hundred-page proof \cite{lyubich1999feigenbaum}, let alone finding such a function, and is clearly out of the scope of an undergraduate mathematical report like this one. 
-In this section we will attemp to compute the first few terms of the power series of this eigenfunction.
+To make the above section rigorous, and prove the existence of an eigenfunction of the operator $T$, is non-trivial and requires a hundred-page proof \cite{lyubich1999feigenbaum}, let alone finding such a function, and is clearly out of the scope of an undergraduate mathematical report like this one. 
+In this section, we will attempt to compute the first few terms of the power series of this eigenfunction.
 
-Assuming $g(0) = 1$ and $g$ is an even function, (the validity of such assumption is justified by the fact that a successful result was found based on it), it can be written in the form of Taylor expansion 
+Assuming $g(0) = 1$ and that $g$ is an even function, (the validity of such assumption is justified by the fact that a successful result was found based on it), it can be written in the form of Taylor expansion 
 $$
 g = 1 + b_1 x^2 + b_2x^4 + \cdots 
 $$
