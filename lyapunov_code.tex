@@ -1,0 +1,48 @@
+\begin{lstlisting}[style=python]
+def logistic(r, x):
+    return 4*r * x * (1 - x)
+
+r_high = 1
+r_low = 0
+# Parameters
+r_values = np.linspace(r_low, r_high, 10000)
+iterations = 1000
+last = 100
+
+#Bifurcation diagram
+fig1, ax1 = plt.subplots(figsize=(10, 5))
+x = 1e-5 * np.ones_like(r_values)
+
+for i in range(iterations):
+    x = logistic(r_values, x)
+    if i >= (iterations - last):
+        ax1.plot(r_values, x, ',k', alpha=.25, c = 'tab:blue')
+
+ax1.set_xlabel('r')
+ax1.set_ylabel('x')
+
+ax1.grid(True)
+fig1.tight_layout()
+plt.show()
+
+# Lyapunov exponent plot
+fig2, ax2 = plt.subplots(figsize=(10, 5))
+lyapunov = np.zeros_like(r_values)
+
+x = 1e-5 * np.ones_like(r_values)  # Reset x for Lyapunov calculation
+for i in range(iterations):
+    x = logistic(r_values, x)
+    lyapunov += np.log(abs(4*r_values - 8 * r_values * x))
+
+ax2.plot(r_values, lyapunov / iterations, 'k', alpha=.9, c="tab:blue")
+ax2.set_xlabel('r')
+ax2.set_ylabel('Lyapunov exponent')
+
+# Set x-ticks
+# ax2.set_xticks(np.arange(2.5, 4.1, 0.5))
+# ax2.set_xticklabels([f'{tick:.1f}' for tick in np.arange(2.5, 4.1, 0.5)])
+
+ax2.grid(True)
+fig2.tight_layout()
+plt.show()
+\end{lstlisting}

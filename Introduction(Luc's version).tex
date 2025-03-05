@@ -1,0 +1,35 @@
+The Oxford dictionary definition of chaos is `a complete lack of order'. In mathematics, the notion of chaos follows this definition closely. For a dynamical system\footnote{A \emph{dynamical system} is described by the time-dependence of initial conditions for some function, e.g. a system of differential equations acting on a specific initial point.}, chaos can be summarised to be a sensitive dependence on initial conditions. In the real world, this sensitivity is the cause of many boundaries we face in modelling dynamical systems. For instance, we cannot reliably predict the weather past a certain number of days since any deviation from the exact measurements of our climate often results in a completely different outcome. The famous `butterfly effect'\footnote{“Does the flap of a butterfly's wings in Brazil set off a tornado in Texas?” - Edward Lorenz} is synonymous with this idea.
+
+%An example of chaos that has been shown comes from the Lorenz system, which demonstrated different the impact different conditions had on the weather, highlighting the challenges in trying to predict the weather. The model for the Lorenz system is
+%\begin{align*}
+    %\frac{dx}{dt} &= \sigma (y-x), \\
+    %\frac{dy}{dt} &= x(\rho -z)-y, \\
+   % \frac{dz}{dt} &= xy-\beta z.
+%\end{align*}
+%When plotted over different initial conditions, the plots appear to possess different traits.
+%\begin{figure}
+    %\centering
+    %\includegraphics[width=1\linewidth]%{figures/output.png}
+    %\caption{Lorenz system with varying parameters where we can see varying orbits occurs that converge towards different attractors}
+    %\label{fig:lorenz}
+%\end{figure}
+%From each plot, the attractors appear to be in a different location. In the plot for $\rho = 28$, trajectories appear to take a wide variety of unique paths. This is a sign that the system is chaotic under the specific initial conditions.
+\begin{exmp}
+    An iconic example of a chaotic dynamical system is the Lorenz system, which demonstrates how nearby points can end up on completely different trajectories. The Lorenz system is modelled by the system of differential equations:
+    $$\frac{dx}{dt} = \sigma (y-x), \quad \frac{dy}{dt} = x(\rho -z)-y \quad\text{and} \quad \frac{dz}{dt} = xy-\beta z.$$
+The values of the parameters to be $\sigma=28$, $\rho=10$ and $\beta=8/3$, we find that the system appears chaotic. Indeed, taking two initial points within a small neighbourhood, we see that their trajectories stray far away from each other. Due to the nature of the Lorenz system, this means that your two points could occupy entirely different regions of space at the same instant of time. The trajectories of two initial points after some time are shown in Figure \ref{fig:lorenzrb}.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/lorenz red blue.png}
+    \caption{The Lorenz `attractor' for parameter values $\sigma=28$, $\rho=10$ and $\beta=8/3$, traced out by the standard initial point $(x,\ y,\ z)=(1.0,\ 1.0,\ 1.0)$ in black. The trajectories of the initial points $(x,\ y,\ z)=(1.1,\ 1.0,\ 1.1)$ and $(x,\ y,\ z)=(1.0,\ 1.1,\ 1.0)$ after $1,000$ iterations are shown in red and blue, respectively.}
+    \label{fig:lorenzrb}
+\end{figure}
+This behaviour is a key characteristic in chaotic dynamical systems. Applied to weather systems, suppose you are trying to model the whereabouts of particles in the air over time; it could be the case that only absolutely perfect measurements of the surrounding environment would give you a reliable prediction; this is, of course, unrealistic.
+\end{exmp}
+There is no way to avoid the unpredictability of chaos. Instead, we find properties of chaotic systems that give us a general idea of their behaviour; this is what it means to quantify chaos. Throughout this report, we will introduce chaotic systems and investigate methods that allow us to find patterns within them. 
+
+We will look at: the Lyapunov exponent, which will show us how sensitive a system is to its initial conditions; attractors and their fractal dimension, telling us how a system approaches a set of points in phase space; the logistic map, a simple system that showcases chaos, which will be our go-to example in many cases; and Feigenbaum's universal constants, numbers that reappear throughout a wide class of chaotic systems. Each of these topics will call for particular definitions of chaos, which vary in rigor. For that reason, we will investigate the simpler topics first and introduce the more rigorous definitions as they are needed.
+
+Chaotic systems lend themselves to intricate plots of both their trajectories and their investigative properties. Throughout this report, we will use Python to make these plots as well as numerical and symbolic calculations and tables of their results. 
+
+%The term \emph{dynamical system} describes a branch of mathematics that studies a process which evolves over time \cite{Devaney_green_book_chaos_definition}. Most of this report concentrates on the one dimensional system consists of sequence of number $x_0, x_1, \cdots$, where $x_0$ is some arbitrary starting point and $x_{n+1} = f(x_n)$, where $f$ is a function of interest.

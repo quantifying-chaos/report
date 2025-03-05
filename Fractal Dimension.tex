@@ -1,0 +1,170 @@
+%Chaotic systems, when visualised, often exhibit complex patterns due to their non-linear behaviour. These objects can loosely be defined as fractals\footnote{There are many definitions for what a fractal is. Mandelbrot defines them as (...)}, and we can measure how complicated one fractal is compared to another. Though our notion of chaos is not necessarily relevant in this section, fractal dimension will be used to measure the complexity of chaotic systems in further sections.%
+
+%Fractal dimension can be summarised as the measure of an object's complexity or detail. Unlike the dimension of standard objects, fractal dimensions can take non-integer values. This allows objects in the same space to be compared in terms of how complicated their shape is. There are multiple ways to calculate or approximate an object's fractal dimension%
+When studying dynamical systems that exhibit chaotic behaviour, we often choose to reduce them to a simpler form in order to obtain quantifiable properties. One key property we look for is \textbf{fractal dimension}, which can be thought of as a set's complexity or detail. It can also be seen as a measure of how an object fills space at small scales. Formally, fractal dimension is an index of sets that characterises their complexity as a ratio of the change in detail to the change in scale \cite{mandelbrot1983fractal}. Unlike the values of dimension we are used to, fractal dimension can take non-integer values to distinguish between two objects that fill the same space but in different ways. For instance, a curve in $\mathbb{R}^2$ with fractal dimension close to one behaves much like a standard curve, while one with a fractal dimension close to two behaves more like a surface, e.g. a space-filling curve. We can reduce a dynamical system to the set of points that its trajectories tend toward and find the fractal dimension of this set, giving us an idea of how the system behaves.
+
+\section{Fractals}
+There are many definitions for what a fractal really is, many of which are not rigorous and can only be applied in specific cases. Our definition will be that of Benoit Mandelbrot's \cite{mandelbrot1983fractal}.
+\begin{defn}
+    Let $X$ be a set. We say that $X$ is a fractal if its fractal dimension strictly exceeds its topological dimension.
+\end{defn}
+In this report, the `topological dimension' will be equal to the standard Euclidean dimension we expect of objects. We have been vague in introducing the notion of non-integer values of dimension; this is because different methods of calculating fractal dimension are used depending on the context of the object. We will introduce these methods after the different contexts are clear.
+
+\section{Self-Similarity and the Mass-Scaling Factor Method}
+Our first context is one which is often used as a definition for fractals; that is, self-similar objects. Intuitively, \emph{self-similar} objects are those that are made up of smaller copies of themselves, such as a solid cube. We see a sense of self-similarity in nature, so fractals are often exemplified as, say, the branches of a tree. While fascinating, this notion of self-similarity will not be relevant in our case. We will see sets that are infinitely perfectly self-similar as they have been defined to be this way by an unbounded recursive construction.
+
+While a little more abstract, the fractal dimensions of objects that exhibit self-similarity can be calculated in a simple way. The following method is motivated by translating our usual notions of an object's dimension to that of fractal dimension. 
+
+\begin{prop} \label{MSF}
+    The mass-scaling factor method:
+    \begin{enumerate}
+        \item Say some self-similar object has a mass equal to one.
+        \item Within the object, find a section that is an identical copy of the original.
+        \item Comparing the copy to the original, work out the mass $m$ and scaling factor $s$ of the copy (this should be clear for simple self-similar shapes).
+        \item Let $M=1/m$ and $S=1/s$. The fractal dimension $D$ of the object is then $S^D=M.$ Equivalently, $D=\log{_SM}$
+    \end{enumerate}
+\end{prop}
+%\begin{defn}
+    %The \textbf{scaling factor}, $S$ of a self-similar object is the ratio in size between itself and the `first' copy of itself.
+%\end{defn}
+
+%\begin{defn}
+    %Suppose a self-similar object has `mass' equal to one. The \textbf{mass scaling factor}, $M$, of the object is the ratio between the masses of the object and the first copy of itself.
+%\end{defn}
+%\textbf{What do we mean by mass?}
+%\begin{defn}
+    %The \textbf{fractal dimension} of an object is the real number, $D$, such that $$S^D=M.$$ Equivalently, $$D=\log{_SM}$$
+%\end{defn}
+This definition of an object's dimension satisfies our usual methods of determining dimension; using elementary intuition, we can see that a straight line, a square, and a cube have fractal dimensions one, two, and three, respectively. In fact, the idea of dimension being a measure of how an object fills space has always been true for normal notions of dimension; scaling down a cube by some factor reduces its mass by that factor to the power of three - the dimension of the cube. As expected, this means they are not fractals due to the fractal dimension being equal to the topological dimension. However, what we have now is a distinction between, say, two curves in $\mathbb{R}^2$ or two surfaces in $\mathbb{R}^3$, where the higher fractal dimension points towards a more detailed structure.
+%\begin{exmp}
+    %The `Koch curve' is constructed by repeatedly adding triangular bumps to the centre-thirds of a line, starting with a straight line of unit length.
+    
+    %If we take a straight line and the Koch curve embedded in $\mathbb{R}^2$, both are continuous curves, so they are of the same dimension in the usual sense; however, we will see that the fractal dimensions are not equal due to the Koch curve being more complex. 
+    %\begin{figure}
+        %\centering
+        %\includegraphics[width=0.8\linewidth]{Images/Koch.png}
+        %\caption{Straight line and Koch Curve}
+       % \label{fig:enter-label}
+    %\end{figure}
+    %Both are self-similar, since any cut of a line is similar to the line and the Koch curve splits into four identical copies of itself, each of which is scaled down in size by $1/3$. It is clear that, taking any cut of the straight line, say $1/a^{th}$ of it, gives a line of mass $1/a$, so we have that the line has a scaling factor equal to its mass-scaling factor, giving a fractal dimension of one, as we would expect. For the Koch curve, we have a scaling factor of $1/3$, since each copy of itself is $1/3^{rd}$ the length of the original and a mass-scaling factor of $1/4$, since we have four copies of this size. Therefore, we have that the fractal dimension of the Koch curve is given by the value of $D$ such that
+    %$$\frac{1}{3}^D=\frac{1}{4},$$
+    %equivalently, such that
+    %$$3^D=4.$$
+    %Therefore,
+    %$$D=\log{_34}\approx1.26186.$$
+    %This means that the Koch curve is a fractal, since its fractal dimension is strictly greater than its topological dimension which, being a curve in the plane, is one.
+%\end{exmp}
+
+\begin{exmp}
+    The `Koch curve', pictured in Figure \ref{fig:Koch}, is constructed in the following way. Take a straight line segment embedded in $\mathbb{R}^2$ and remove the middle third and replace it with an `equilateral-triangle bump'. Note there are now four straight lines of length $1/3$ of the original. On each new straight line, add equilateral-triangle bumps to their middle thirds and repeat. At each stage, each quarter of the curve is an identical copy of the last version, scaled down by $1/3$.
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\linewidth]{Images/Koch new.png}
+        \caption{Construction of the Koch curve, showing the first, second and fifth iterate. In blue are the sections that are scaled copies of the iterate before it.}
+        \label{fig:Koch}
+    \end{figure}
+    Let us follow the steps in Proposition \ref{MSF} to determine the fractal dimension of the Koch curve:
+    \begin{enumerate}
+        \item We say the Koch curve has mass and length one.
+        \item Considering the curve after infinite iterates, each quarter of the curve is identical to the entire thing.
+        \item Since each quarter of the curve is a copy of the original scaled down by $1/3$, one copy has mass $m=1/4$ and scaling factor $s=1/3$.
+        \item We have $M=1/(1/4)=4$ and $S=1/(1/3)=3$, so the fractal dimension of the Koch curve is $D=\log_34\approx1.26186$
+    \end{enumerate}
+    Since the Koch curve is a continuous curve in $\mathbb{R}^2$, its topological dimension is one. Therefore, we have that the Koch curve is indeed a fractal, as its fractal dimension strictly exceeds its topological dimension.
+\end{exmp}
+%From the example above, we can see that we have a measurable value that will distinguish shapes based on their complexity. This will prove useful in chaos theory as knowing the fractal dimension of an object then allows us to talk about measures, which will be affected by the complexity of objects. The issue will be for objects that are not so simply defined and do not exhibit self-similarity. For this, we will need another method for calculating fractal dimension%.
+We see here, a glimpse of what an object's fractal dimension is, with the restriction that our method only works in the case of self-similarity. We have another method that does not depend on this property; however, the context in which it is used must first be introduced.
+\section{Attractors and The Box-Counting Method}
+We often want to look for the points that dynamical systems tend toward as time progresses. In our models, the existence and uniqueness theorem tells us that these points are deterministic in that fixed initial conditions will grant the same result every time. For stable systems, we can further say that some small perturbation of the initial conditions will not greatly affect the solution; this allows us to make strong predictions about how the system will evolve over time. With this in mind, we naturally arrive at the definition of an \emph{attractor}, the set of points in which a system evolves toward over time and then stays there forever. A key property of attractors is that they do not change under a small perturbation of initial conditions, the trajectories will eventually fall into the same set of points.
+
+%\begin{defn}
+    %An \textbf{attractor}, $\mathbf{X}  \in \mathbb{R}^n$, of an $n$-dimensional dynamical system, $F(\mathbf{x},t)$, is the set of points $\mathbf{x}_\infty\in\mathbb{R}^n$ that the trajectory of an initial point $\mathbf{x_0}$ tends toward $t\to\infty$.
+    %$$\mathbf{X} := \{\mathbf{x}_\infty\in\mathbb{R}^n:F(\mathbf{x_0},t)\to\mathbf{x}_\infty \text{ as } t\to \infty\},$$
+    %such that points in some small neighbourhood of %$\mathbf{x_0}$ will share the same attractor%.%
+%\end{defn}%
+
+%\begin{defn}
+    %Let $F(\mathbf{x},t)$ be an $n$-dimensional dynamical system and $\mathbf{x_0}$ be some initial point. An \textbf{attractor}, $\mathbf{X}  \in \mathbb{R}^n$ of $\mathbf{x_0}$ is the set of points
+    %$$\mathbf{X} := \{\mathbf{x}\in\mathbb{R}^n:F(\mathbf{x_0},t) = \mathbf{x}\},$$
+    %such that the trajectories are dense near these points after some large $t$. Furthermore, points in some small neighbourhood of $\mathbf{x_0}$ share the same attractor.
+%\end{defn}
+
+%\begin{defn}
+    %Let $F(\mathbf{x},t)$ be an $n$-dimensional dynamical system and $\mathbf{x_0}$ be some initial point. An \textbf{attractor}, $\mathbf{X}  \in \mathbb{R}^n$ of $\mathbf{x_0}$ is the set of points such that:
+    %\begin{enumerate}
+        %\item the trajectory remains dense in after some large number of iterations; and
+        %\item points in some small neighborhood of $\mathbf{x_0}$ share the same attractor.
+    %\end{enumerate}. 
+%\end{defn}
+%For simpler stable systems, we can find formulas for defining these sets by taking derivatives of the map $F$ and finding the stable points.
+
+For stable systems, two types of attractors are: fixed points, a state of equilibrium; and limit cycles, a set of points that the system will stay in, periodically, forever. 
+%Since we have a set of distinct points in $\mathbb{R}^n$, we say these attractors are one-dimensional. 
+%Small changes to the initial conditions will have a small effect on the attractors for stable systems. If we alter the parameters of a given system, we can see changes in stability as well as changes in the attractor type. 
+
+%Given a system that is not stable, the trajectories may diverge. In a confined space, we have the example of a fluid mixing in a box, and we say that the attractor of this system is the whole three-dimensional space.
+For chaotic systems, things are different. Since we have a strong sensitivity to initial conditions, even stable points can become unstable at the slightest perturbation due to the existence of a positive Lyapunov exponent. This means we cannot define the set so easily since a minor change to one initial point could greatly affect its outcome over time. This being said, we may not have complete divergence since we can plot the trajectories after a high number of iterations and still see a distinct set. Furthermore, zooming in to these attractors, we see that they can take the form of fractals. 
+
+These properties have coined the term `strange' attractors since they show convergence of a system that seems to never settle down. To better understand strange attractors, a staple example is the Hénon map, a simplified section of the famous Lorenz system.
+\begin{exmp}
+    We define the Hénon map, which acts on points $(x,y)\in \mathbb{R}^2$, as the discrete-time dynamical system, 
+    \[
+x_{n+1} = 1 - a x_n^2 + y_n, \quad y_{n+1} = b x_n.
+    \]
+    The classic parameters are $a=1.4$ and $b=0.3$, with which the map is chaotic. Plotting the trajectory of the initial point $(0,0)$ gives us a prime example of a strange attractor.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\linewidth]{Images/Henon attractor.png}
+        \caption{$100,000$ iterations of the Hénon map with initial point $(x_0, y_0)=(0,0)$}
+        \label{fig:Henon1}
+    \end{figure}
+    We see the set of points this system attains as the nested curves in Figure \ref{fig:Henon1}. It is important to understand these curves are made up of distinct points, given by each iteration of the Hénon map, and these points are by no means following the curves continuously; we see that the 95th through 99th iterations\footnote{Choosing the 95th through 99th iterations was completely arbitrary in the interest of a diagram that represented the point well. Almost all iterations we could have chosen would have shown the sensitive dependence on initial conditions.} are far apart from each other and follow no obvious pattern. Changing the initial conditions by a small amount, we see that the attractor remains similar, but these same iterations appear in drastically different positions on it, alluding to the chaotic nature of this system. This behaviour can be seen in Figure \ref{fig:Henon2}.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\linewidth]{Images/Henon attractor with labels.png}
+        \caption{The Hénon attractor, generated from two different initial points, $(x_0,y_0) = (0,0)$ and $(x_0',y_0') = (0.5,0.5)$. The attractor is identical for both initial points while the system itself appears to be chaotic due to the iterates following drastically different trajectories.}
+        \label{fig:Henon2}
+    \end{figure}
+    The fact we see a similar attracting set for both initial points indicates this is indeed an attractor by definition. We can give further evidence that this is a strange attractor by zooming in to a section of it and noticing that more and more curves appear the further we zoom. We see more curves appear in Figure \ref{fig:Henon3}. This intricate detail, no matter the scale, is a direct implication that this attractor is indeed a fractal.
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\linewidth]{Images/henon zoom.png}
+        \caption{Zooming in to the blue boxes on the Hénon attractor to see the fractal structure of the object.}
+        \label{fig:Henon3}
+    \end{figure}
+    Since the attractor has a sensitive dependence on initial conditions and a fractal structure, we conclude that indeed this is a strange attractor by our definition.
+\end{exmp}
+From this example, it is clear that the mass-scaling factor method of determining fractal dimension will no longer be of use, since we cannot simply find a smaller version of the Hénon map inside itself, let alone determine its mass-scaling factor. However, the idea of how the attractor fills space will motivate a new method for approximating the value.\\
+
+Motivated by the need for a universal method for calculating fractal dimension, the following method can be used to approximate the fractal dimension of any object in some subset of $\mathbb{R}^n$. The idea is, given some complicated object, we measure the amount of space it fills as we zoom into its structure. We do this by overlaying a grid of $n$-dimensional boxes over the object and counting how many boxes it is contained in. We then decrease the size of the boxes and count again, repeating this process a number of times. With the results, we plot the logarithms of the number of boxes against the size of the boxes and take the slope of best fit to be the fractal dimension. Explicitly, we have a formula
+$$D = \lim_{\epsilon \to 0} \frac{\log N(\epsilon)}{\log(1/\epsilon)},$$
+where $\epsilon$ is the size of each box (length of one $n$-cube) and $N(\epsilon)$ is the number of boxes the object is contained in for each $\epsilon$. For complicated objects, the best way to do this is by use of computer code that will do this whole process to a strong level of accuracy. We return to the previous example to calculate the fractal dimension of the Hénon attractor.
+\begin{exmp}
+    Using Python, we calculate the fractal dimension of the Hénon attractor. The code overlays a grid of boxes over the fractal and counts the number of boxes that contain it as the box size decreases. In Figure \ref{fig:Henon4}, we see the blue boxes that contain the attractor as their size decreases.
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\linewidth]{Images/Henon boxes.png}
+        \caption{Blue squares are those from the grid that contain at least one iterate of the Hénon attractor after $10,000,000$ iterations, using initial point $(0,0)$. The first $10,000$ iterates are discarded to remove any `dust' for accuracy.}
+        \label{fig:Henon4}
+    \end{figure}
+    The code then plots $\log (N(\epsilon))$ against $\log (1/\epsilon)$ for many values of $\epsilon$ and finds the line of best fit through the points on the plot. The gradient of the line is then calculated to achieve a value for $D$. This is all given in Figure \ref{fig:Henon5}.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\linewidth]{Images/henon loglog.png}
+        \caption{$\log (N(\epsilon))$ as a function of $\log(1/\epsilon)$ for ten values of $\epsilon$ and the line of best fit through the data points which has gradient equal to the fractal dimension of the Hénon attractor.}
+        \label{fig:Henon5}
+    \end{figure}
+    From the gradient of the line, we get a value of $D\approx1.264$, which is our fractal dimension of the Hénon attractor by the box-counting method. The code written for this example is shown in \ref{boxalg}.
+\end{exmp}
+With this, we have a reliable method for calculating the fractal dimension of a fractal object in $\mathbb{R}^n$. This gives an index of fractals, distinguished by their small-scale complexity. 
+This complexity and these fractal shapes are seen throughout nature as a characteristic of what we consider to be a natural-looking shape. Noticing this, computer image generation uses fractals to create shapes that look natural, such as mountain ranges, plants, and coastlines. Without fractals, we could do our best to draw the detailed ridge of a mountain range from a given distance away, but the detail would not stay as we get closer. Fractals allow us to generate this detail to any scale, which makes for much better generation of such objects. The fractals we use will depend on what we are trying to model. Mountain ranges, plants, and coastlines will all have different ranges of fractal dimensions that best represent their real-life structure. 
+
+%\section{Fractal Dimension Implications}
+%For chaotic dynamical systems, we can now quantify the dimension of the attractors with values that better represent the strange structure they can have. These values give us an idea of the properties of the system itself.\\
+
+%First, the higher the fractal dimension, the more an attractor of a system fills the space it occupies. In an $n$-dimensional subset of $\mathbb{R}^n$, this means that an attractor with a fractal dimension close to $n$ will be associated with a system that has a higher number of effective degrees of freedom.
+%In particular, suppose we are working in some subset of $\mathbb{R}^2$. We have, on one extreme, that the attractor of the system is a single fixed point, where we would have a zero-dimensional attractor. On the other extreme, the attractor is the whole space, two-dimensional. A one-dimensional attractor would be one that takes the form of a smooth continuous curve\footnote{For discrete time systems, an attractor in the shape of a smooth curve will not be continuous in $\mathbb{R}^2$ but the box-counting dimension will still be equal to one.}. An attractor's fractal dimension then tells us how chaotic a system is; whether it behaves more like a fixed point or limit cycle, alluding to a system that is close to being stable; fills nearly the entire subspace, much like fluid mixing in a box; or it takes values across a set similar to a smooth curve, like the Hénon attractor.  How close the fractal dimension is to the integer values generally points towards how strong the attractor is, i.e., how long it takes for nearby points to get within a small distance of the attractor. This correspondence gives a good insight into the stability of attractors as the system's parameter changes. A case we will look into extensively is when we plot a \textbf{bifurcation diagram} of a one-dimensional discrete-time dynamical system, which gives a visual representation of how the attractors change as we vary a parameter. The \textbf{bifurcation points} (where the attractor type changes, doubling the period of a limit cycle each time) are surrounded by `dust' which is made by thousands of iterations taking a long time to settle around the attractor and other nearby attractors. These points have attractors that are technically fixed points or limit cycles, so should intuitively have a dimension of zero. However, the iterates converge asymptotically to this attractor so, plotting any large finite number of iterates, the attractor takes the form of a line in one-dimension; the fractal dimension of the attractor tends toward one. This tells how weakly stable these points are, leading to issues of numerical calculation around these points. On the other hand, we have \textbf{super-stable points} across the bifurcation diagram, that stay at the first iteration forever; fixed points that take no time to settle down, so have fractal dimension exactly zero. These points will be of great interest to us since numerical approximations of these points will be a key step in deriving Feigenbaum's universal constants.\\
+
+%Varying the parameters of some system, we see changes in the types of attractor as well as fractal dimension. What this means is that there are significant parameter values in which the type of attractor changes or the fractal dimension reaches value we take interest in. Throughout this report, we look at one-dimensional discrete time dynamical systems and take great interest in the changes we see to the attractors as we alter the system's parameters. We witness a phenomenon called \textbf{bifurcation} in which a fixed point attractor becomes a period-two limit cycle, period-two becomes period-four, and so on, the period doubling each time bifurcation occurs. This change occurs at specific values of the system's parameters, called the \textbf{bifurcation points}. These points are so weakly stable that 
+
+%An interesting case is when an object has an integer-valued fractal dimension that is higher than expected. For example, a curve in $\mathbb{R}^2$ can be so complex that it has a fractal dimension equal to two, without needing to be a space-filling curve. What this means is we can zoom into the curve at any scale and find incredible detail. These objects are important to chaos theory as they provide an intriguing and beautiful advertisement for the subject.

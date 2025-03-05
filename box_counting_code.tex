@@ -1,0 +1,105 @@
+\begin{lstlisting}[style=python]
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+
+# Define the Henon map function
+def henon_attractor(a=1.4, b=0.3, n_points=10000000, burn=10000):
+    """
+    Generate points from the Henon attractor, discarding the first 'burn' iterations.
+    
+    Parameters:
+        a (float): Parameter a of the Henon map.
+        b (float): Parameter b of the Henon map.
+        n_points (int): Number of points to generate after burn-in.
+        burn (int): Number of initial iterations to discard.
+    
+    Returns:
+        tuple: Arrays of x and y coordinates.
+    """
+    x, y = 0, 0  # Initial conditions
+    x_vals, y_vals = [], []
+    total_points = n_points + burn
+    for i in range(total_points):
+        x, y = 1 - a * x**2 + y, b * x
+        if i >= burn:
+            x_vals.append(x)
+            y_vals.append(y)
+    return np.array(x_vals), np.array(y_vals)
+
+# Draw blue boxes (grid cells) that contain at least one attractor point.
+def draw_blue_boxes(x_vals, y_vals, box_size, ax, xlim, ylim):
+    """
+    Draw grid boxes of side length 'box_size' over the attractor.
+    For each grid cell that contains one or more points, a blue rectangle is drawn.
+    """
+    # Create grid edges using the fixed axis limits
+    x_edges = np.arange(xlim[0], xlim[1] + box_size, box_size)
+    y_edges = np.arange(ylim[0], ylim[1] + box_size/3.5, box_size/3.5)
+    
+    # Compute a 2D histogram to determine occupancy of each grid cell
+    H, x_edges, y_edges = np.histogram2d(x_vals, y_vals, bins=[x_edges, y_edges])
+    
+    # For each grid cell that contains at least one point, draw a blue rectangle
+    for i in range(H.shape[0]):
+        for j in range(H.shape[1]):
+            if H[i, j] > 0:
+                lower_left = (x_edges[i], y_edges[j])
+                rect = patches.Rectangle(lower_left, box_size, box_size/3.5,
+                                         fill=False, edgecolor='blue', lw=0.5)
+                ax.add_patch(rect)
+
+# Count the number of occupied boxes for different box sizes
+def count_boxes(x_vals, y_vals, box_size, xlim, ylim):
+    x_edges = np.arange(xlim[0], xlim[1] + box_size, box_size)
+    y_edges = np.arange(ylim[0], ylim[1] + box_size/3.5, box_size/3.5)
+    H, _, _ = np.histogram2d(x_vals, y_vals, bins=[x_edges, y_edges])
+    return np.sum(H > 0)
+
+# Compute box-counting dimension and plot log-log graph
+def compute_box_counting_dimension(x_vals, y_vals, xlim, ylim):
+    box_sizes = np.logspace(-1, 0, num=10)
+    counts = [count_boxes(x_vals, y_vals, bs, xlim, ylim) for bs in box_sizes]
+    log_inv_bs = np.log(1 / np.array(box_sizes))
+    log_counts = np.log(counts)
+    slope, intercept = np.polyfit(log_inv_bs, log_counts, 1)
+    
+    ax.tick_params(axis='both', which='major', labelsize=12)
+    plt.figure(figsize=(8, 8))
+    plt.scatter(log_inv_bs, log_counts, color='blue', label='Data')
+    plt.plot(log_inv_bs, slope * log_inv_bs + intercept, 'r--', label=f'Fit: D={slope:.3f}')
+    plt.xlabel('log(1/box size)', size = 20)
+    plt.ylabel('log(box count)', size = 20)
+    plt.legend(fontsize = 16)
+    plt.show()
+    
+    return slope
+
+# Main script
+# Generate the Henon attractor points (with burn-in)
+x_vals, y_vals = henon_attractor(n_points=10000000, burn=10000)
+
+xlim = (np.min(x_vals), np.max(x_vals))
+ylim = (-0.4, 0.4)
+
+# Create three subplots with three different box sizes (from large to small)
+fig, axs = plt.subplots(1, 3, figsize=(18, 7))
+
+# Define three representative box sizes (you can adjust these values)
+box_sizes = [0.1, 0.05, 0.02]
+titles = [f"Box size = {bs:.2f}" for bs in box_sizes]
+
+for ax, bs, title in zip(axs, box_sizes, titles):
+    ax.plot(x_vals, y_vals, ',k', alpha=0.5)
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+    ax.set_xlabel('x', size = 20)
+    ax.set_ylabel('y', size = 20)
+    ax.set_title(title, size = 20)
+    ax.tick_params(axis='both', which='major', labelsize=12)
+    # Draw the blue boxes over the attractor
+    draw_blue_boxes(x_vals, y_vals, bs, ax, xlim, ylim)
+
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+plt.show()
+\end{lstlisting}\label{boxalg}
