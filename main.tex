@@ -3,8 +3,9 @@
 \input{preamble}
 
 \begin{document}
-% \pagenumbering{roman}
 \maketitle
+
+\pagenumbering{roman}
 \input{abstract.tex}
 \declaration
 \dedication{Musa mihi causas memora ...\\
@@ -12,27 +13,35 @@
 }
 
 \tableofcontents
+\newpage
+\pagenumbering{arabic}
 
-\chapter{Introduction}
-
+\addcontentsline{toc}{chapter}{Introduction}
+\chapter*{Introduction}
 \input{Introduction(Luc's version)}
+
 \chapter{Lyapunov Exponents}
 \input{Lyapunov exponents}
 \chapter{Fractal Dimension}
 \input{Fractal Dimension.tex}
 
-\chapter{Bifurcations in Discrete Dynamical Systems}\label{chapter:bifurcation}
-
-\input{logistic_map.tex}
-
-\chapter{Chaos With Rigour}\label{chapter:chaos_with_rigor}
+\chapter{Chaos with Rigour}\label{chapter:chaos_with_rigor}
 \input{chaos_with_rigor.tex}
+
+\chapter{Bifurcations in Discrete Dynamical Systems}\label{chapter:bifurcation}
+\input{logistic_map.tex}
 
 \chapter{Feiganbaum Theory of Scaling}
 \input{Universailty.tex}
 
-\chapter{Conclusion}
+
+\addcontentsline{toc}{chapter}{Conclusion}
+\chapter*{Conclusion}
 \input{Conclusion.tex}
+
+\addcontentsline{toc}{chapter}{Acknowledgement}
+\chapter*{Acknowledgement}
+We thank sincerely our supervisor Prof Jacques Vanneste, without whose support and guidance this report would have been impossible.
 
 \begin{appendices}
 	\chapter{Numerical Calculations for Point of Super-stability}

@@ -1,14 +1,12 @@
-So far rest of this report we have been loose on using the term chaotic.
-This chapter attempts to remedy this and give some rigorous treatment of chaos using tools in topology and analysis and provides proof for some theorems.
+This chapter aims to remedy the loose and unrigourous use of chaos so far in this report by giving precise definitions and proof for important theorems using tools in topology and analysis.
 
-\section{Basic Concepts in one Dimensional Dynamics}
+\section{Basic Concepts in One-Dimensional Dynamics}
 
-Our first definition is fixed point.
+Our first definition is the fixed point.
 
 \begin{defn}[Fixed Point]
-	Assuming we have a iterated dynamical system $x_{i+1} = f(x_i)$. 
-	The fix point of $f$ is a point $x^*$ such that $f(x^*) = x^*$. 
-	That is, the fixed points are the solution to the equation $f(x) = x$.
+	Assuming we have an iterated dynamical system $x_{i+1} = f(x_i)$, a fixed point of $f$ is a point $x^*$ such that $f(x^*) = x^*$. 
+	That is, fixed points are solutions to the equation $f(x) = x$.
 \end{defn}
 
 Fixed points are like sinks in the dynamical system. 
@@ -51,7 +49,7 @@ Considering the above example, we can define a stronger sense of stability calle
 Upon settlement of this definition, the following theorem is immediate.
 
 \begin{thm}[Stable and unstable fixed point]\label{th:_stable_unstable_fixed_point}
-	If $x^*$ is a fixed point of a two time differentiable function $f$ and $|f'(x^*)| < 1$, $x^*$ is a  asymptotic stable fixed point.
+	If $x^*$ is a fixed point of a twice-differentiable function $f$, and $|f'(x^*)| < 1$, then $x^*$ is an asymptotic stable fixed point.
 	If $|f'(x^*)| > 1$, $x^*$ is unstable.
 	If $|f'(x^*)| = 0$, $x^*$ may be stable or unstable.
 \end{thm}
@@ -59,7 +57,7 @@ Upon settlement of this definition, the following theorem is immediate.
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{./figures/stable_and_unstable_fixed_point.png}
-	\caption{An illustration of theorem \ref{th:_stable_unstable_fixed_point}.
+	\caption{An illustration of Theorem \ref{th:_stable_unstable_fixed_point}.
 	The figure on the left shows function $f(x) = 0.4 e^x - 0.4$, which has a stable fixed point at $x^* = 0$. 
 	The figure on the right shows function $f(x) = 1.3 e^x - 1.3$, and its unstable fixed point at $x^* = 0$.}
 	\label{fig:stable and unstable fixed point}
@@ -68,16 +66,16 @@ Upon settlement of this definition, the following theorem is immediate.
 Figure \ref{fig:stable and unstable fixed point} is an illustration of this theorem.
 To prove this theorem is a regular exercise using Taylor expansion. 
 
-Assuming $x^*$ is a fixed point of the iterated map $f$ whose Taylor expansion is
-$$f(x) = f(x^*) + f'(x^*) (x - x^*) + O(x^2)$$
+Assume $x^*$ is a fixed point of the iterated map $f$, whose Taylor expansion is
+$$f(x) = f(x^*) + f'(x^*) (x - x^*) + O(x^2).$$
 
-For any $\delta$ let is evaluate $f(x^* + \delta)$.
+For any $\delta$, evaluate $f(x^* + \delta)$.
 Since $x^*$ is a fixed point,
  $f(x^*) = x^*$, and
  $f(x^* + \delta) - f(x^*) = f'(x^*) \delta + O(x^2)$. 
 For small enough $\delta$ we can ignore all the terms of degree higher than $2$, and the above equation states $x^*+ \delta$ will eventually converge to $x^*$ if $|f'(x^*)| < 1$, and diverge if $|f'(x^*)| > 1$.
 
-This theorem, though simple, is powerful and is a fundamental part for any rigorous approach of iterated dynamical systems and is also used multiple times in this report (such as in the proof of \ref{th:logistic_bifurcation}). 
+This theorem, though simple, is powerful and is a fundamental part for any rigorous approach of iterated dynamical systems and is also used multiple times in this report (such as in the proof of Observation \ref{th:logistic_bifurcation}). 
 As a result, hereby we give another proof using only the classic mean value theorem and $\epsilon-\delta$ definition of limit.
 
 \begin{proof}[Proof of Theorem \ref{th:_stable_unstable_fixed_point}]
