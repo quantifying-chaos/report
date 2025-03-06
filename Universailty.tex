@@ -36,7 +36,7 @@ $$
 g_{1r}(x-X_m) = (-\alpha)^r \{F^{2r}(A_{r+1}, X_m + (x-X_m)/(-\alpha)^r)-X_m\}.
 $$
 Let $x-X_m$ be the difference from the point of superstability about the bifurcation to $X_m$. 
-From the scaling of $d_r$, this implies that $g_1(0)=-\frac{D}{\alpha}$ and by solving for the first couple of iterations of $g_{1r}(x-X_m)$, we can see a limit emerge for $g_1$.
+From the scaling of $d_r$, this implies that $g_1(0)=-\frac{D}{\alpha}$ and by solving for the first couple of iterations of $g_{1r}(x-X_m)$, we can see a limit emerges for $g_1$.
 Feigenbaum believed that $g_1$ is dependent on the scaling of $x-X_m$ which shows the behaviour of $F$ near to its maximum. 
 % Since $g_1$ doesn't matter on the map $F$ we can thus say that this behaviour causes $g_1$ to become universal.
 
@@ -65,14 +65,14 @@ We can now take the limit as $k \to \infty$ to show that there exists a function
     Tg=g \label{eq:FunctionalOperator}
 \end{align}
 holds. 
-And $g$ is a  `fixed point' of the nonlinear functional operator $T$.
+And $g$ is a `fixed point' of the nonlinear functional operator $T$.
 
 Using the functional equation \eqref{eq:FunctionalOperator}, the constant $\alpha$ must be determined as part of the solution. 
 The function $g(x)$ satisfies this functional equation, and it possesses a scaling symmetry, such that if $g(x)$ is a solution, then the rescaled function $\mu g(x/\mu)$ is also a solution for any $\mu \neq 0$. 
 This scaling symmetry implies that there is an inherent freedom in the choice of the parameter $\mu$.
-By convention is $\mu$ is chosen such that 
+By convention, $\mu$ is chosen such that 
 $$
-g(0)=1
+g(0)=1.
 $$
 Setting $x=0$ in the functional equation, we have, by the original definition  of our operator,
 \begin{equation}\label{eq:alpha}
@@ -83,10 +83,10 @@ Feigenbaum was able to numerically verify the method, where he found that
 \begin{align}
     g(x)= 1 - 1.52763x^2 + 0.10482x^4- 0.02671x^6 + \dots .\label{eq:feigenbaum}
 \end{align}
-that corresponds to the desired $\alpha =-1/g(1)=2.5029$.
+This corresponds to the desired $\alpha =-1/g(1)=2.5029$.
 
 \begin{exmp} The Logistic Map
-	The logistic map, defined by $F(a,x)=ax(1-x)$, attains it's maximum value at $X_m =1/2$.
+	The logistic map, defined by $F(a,x)=ax(1-x)$, attains its maximum value at $X_m =1/2$.
 	Thus we are able to replace $x-X_m$ with $x-1/2$. Hence our new function is given as $F(a,x)=a(1/4-x^2)-1/2$, ensuring that the maximum value of our new function occurs at $x=0$. Using equations \eqref{eq:one} and \eqref{eq:two} we can now see that,
     \begin{align}
         g_{10}&=F(A_1,x)=A_1(1/4-x^2)-1/2 \nonumber \\
@@ -95,15 +95,15 @@ that corresponds to the desired $\alpha =-1/g(1)=2.5029$.
     \end{align}
     Thus, for $g_{1r}(x)$, we can plot our findings as $r \to \infty$ in the $x, y$ plane where $y=g_{1r}(x)$. 
 	When we present our first couple of plots, we can see a clear limiting function $g_{k=1}$ appearing as $r$ increases. Thus from \eqref{eq:two} we can see that, as we increase $k$, the sequence of functions converges to some function $g(x)$. 
-	We can see the behaviour of our results in the plots in Figure \ref{fig:unscaled}.
+	This is demonstrated in Figure \ref{fig:unscaled}.
 	\begin{figure}
     \centering    \includegraphics[width=1\textwidth]{Feigenbaum Approx Graphs/feignabum.png}
-    \caption{Unscaled graphs corresponding to the logistic map}
+    \caption{Unscaled graphs corresponding to the logistic map showing the convergence to a limiting function as we iterate over $r,k$. The lines don't converge to Feigenbaum's results meaning that there must exist a scaling factor $\mu$ which needs to be applied.}
     \label{fig:unscaled}
 \end{figure}
     
 
-    The blue line in \ref{fig:unscaled} shows us Feigenbaum's numerically solved solution \eqref{eq:feigenbaum} while the rest of the lines show us the iterations of $r$ for specified $k$ values. 
+    The blue line in Figure \ref{fig:unscaled} shows us Feigenbaum's numerically solved solution \eqref{eq:feigenbaum} while the rest of the lines show us the iterations of $r$ for specified $k$ values. 
 	By iterating $r$ the function seems to converge to some limit, which, however, is different from the solution of Feigenbuam.
 	This issue can be resolved by rescaling the function $g(x)$ by an appropriate factor $\mu = \frac{1}{g(0)}$, where $g(0)$ here is our map's solved unscaled value at 0. 
     From our findings, we found that our value of $g(0)$ is $0.39176186028018406$ such that the corresponding scaling factor was found to be $\mu= 2.552571093277968$. Now that we have our new rescaled function $g(x)$, we can plot the iterations of $r$ and $k$. 
@@ -111,14 +111,13 @@ that corresponds to the desired $\alpha =-1/g(1)=2.5029$.
     \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{Feigenbaum Approx Graphs/feigenbaum_scaled.png}
-    \caption{Rescaled graphs corresponding to the logistic map}
+    \caption{Rescaled graphs with scaling factor $\mu=2.552571093277968$, corresponding to the logistic map which shows the convergence to the limiting function as we iterate $r,k$ that aligns Feigenbaum's numerics.}
     \label{fig:rescaled}
 \end{figure}
 The blue lines again show us Feigenbaum's numerically solved solution \eqref{eq:feigenbaum}. 
 We can now see that due to $\mu$, our rescaled $g(x)$ now shifts up towards Feigenbaum's solution and attains the desired shape showing us that we have successfully rescaled our original solution to the universal one presented by Feigenbaum. 
 Thus we have demonstrated the convergence described by Feigenbaum towards his numerical solution as well as the existence of a limiting function $g(x)$ as we increase both $r$ and $k$ simultaneously. 
 \end{exmp}
-
 
 \section{Numerical Computation of Eigenfunction of $T$}
 
@@ -129,7 +128,7 @@ Assuming $g(0) = 1$ and that $g$ is an even function, (the validity of such assu
 $$
 g = 1 + b_1 x^2 + b_2x^4 + \cdots 
 $$
-Defining the $n$th partial sum of this power series as $g = 1 + b_1x^2 + \cdots + b_{n-1}x^{2n-2}$, and applying $T$ to $g_n$ will produce another $(2n-2)^2$-degree polynomial whose coefficients depend on $b_1, \cdots, b_{n-1}$ and $\alpha$.
+Defining the $n$th partial sum of this power series as $g = 1 + b_1x^2 + \cdots + b_{n-1}x^{2n-2}$, and applying $T$ to $g_n$ will produce another $(2n-2)^2$-degree polynomial whose coefficients depend on $b_1, \cdots, b_{n-1}$, and $\alpha$.
 Ignoring the terms of degree higher than $2n-2$, and equating the coefficients of the result with that of $g$ of the same degree will give $n$ functions for $n$ variables, whose solution can be solved numerically. 
 
 We will demonstrate an example for $g_1 = 1 + b_1 x^2$. 
@@ -159,7 +158,7 @@ $$
 
 The solution is $\alpha = 1 + \sqrt{3} \approx 2.732$ and $b_1 = - \frac{\sqrt{3}}{2} - \frac{1}{2} \approx -1.366$.
 
-Calculating any more terms by hand would be an extremely tedious process; luckily, we can resort to computer algebra systems for symbolic manipulation (we used Sympy and BLAS library (fsolve from Scipy)) for solving equations of $n$ variables. 
+Calculating any more terms by hand would be an extremely tedious process; luckily, we can resort to computer algebra systems for symbolic manipulation (we used Sympy) and BLAS library (fsolve from Scipy) for solving equations of $n$ variables. 
 The approximation for the fifteen terms is shown in Table \ref{tb:b_i table}.
 The python code for producing these results is included in Appendix \ref{fsolve}.
 
@@ -188,7 +187,7 @@ $n$ & $b_n$ \\
 15 & \( 9.052335129 \times 10^{-13} \) \\
 \hline
 \end{tabular}
-\caption{The values of $b_n$ are the coefficients of the Taylor expression of $g$, where $g$ is the solution to $Tg = g$;
-that is, $g = 1 + \sum_{i=1}^n b_i x^{2i}$.}
+\caption{The values of $b_n$ are the coefficients of the Taylor expression of $g$ such that $g = 1 + \sum_{i=1}^n b_i x^{2i}$, where $g$ is the solution to $Tg = g$.
+}
 \label{tb:b_i table}
 \end{table}

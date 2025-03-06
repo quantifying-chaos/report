@@ -1,48 +1,173 @@
 \begin{lstlisting}[style=python]
-def logistic(r, x):
-    return 4*r * x * (1 - x)
+import numpy as np
+import matplotlib.pyplot as plt
 
-r_high = 1
+def tent_map(x, r):
+    """
+    Compute one iteration of the tent map.
+    """
+    return np.where(x < 0.5, r*x, r*(1 - x))
+
+# Control parameters
 r_low = 0
-# Parameters
-r_values = np.linspace(r_low, r_high, 10000)
-iterations = 1000
-last = 100
+r_high = 2
+r_values = np.linspace(r_low, r_high, 10000)  # 10,000 parameter values
+iterations = 100000  # Total iterations per parameter value
+last_points = 100  # Only plot the last 100 iterations to see behaviour near attractors
 
-#Bifurcation diagram
+#---------- Bifurcation diagram ----------#
 fig1, ax1 = plt.subplots(figsize=(10, 5))
+
+# Initialize starting state for all parameter values
 x = 1e-5 * np.ones_like(r_values)
 
+# Iterate the system
 for i in range(iterations):
-    x = logistic(r_values, x)
-    if i >= (iterations - last):
-        ax1.plot(r_values, x, ',k', alpha=.25, c = 'tab:blue')
+    x = tent_map(x, r_values)
+    if i >= (iterations - last_points):
+        ax1.plot(r_values, x, ',k', alpha=0.25, c='tab:blue')
 
-ax1.set_xlabel('r')
-ax1.set_ylabel('x')
-
+ax1.set_xlabel(r"$r$") 
+ax1.set_ylabel(r"$x$")
 ax1.grid(True)
 fig1.tight_layout()
 plt.show()
 
-# Lyapunov exponent plot
+#---------- Lyapunov exponent plot ----------#
 fig2, ax2 = plt.subplots(figsize=(10, 5))
+
+# Reset state for Lyapunov calculation
+x = 1e-5 * np.ones_like(r_values)
 lyapunov = np.zeros_like(r_values)
 
-x = 1e-5 * np.ones_like(r_values)  # Reset x for Lyapunov calculation
-for i in range(iterations):
-    x = logistic(r_values, x)
-    lyapunov += np.log(abs(4*r_values - 8 * r_values * x))
+# Compute Lyapunov exponent for each parameter value
+for _ in range(iterations):
+    x = tent_map(x, r_values)
+    
+    # Add log of derivative at each point
+    # The derivative of the tent map is:
+    #   r if x < 0.5
+    #  -r if x >= 0.5
+    lyapunov += np.log(np.abs(np.where(x < 0.5, r_values, -r_values)))
 
-ax2.plot(r_values, lyapunov / iterations, 'k', alpha=.9, c="tab:blue")
-ax2.set_xlabel('r')
-ax2.set_ylabel('Lyapunov exponent')
-
-# Set x-ticks
-# ax2.set_xticks(np.arange(2.5, 4.1, 0.5))
-# ax2.set_xticklabels([f'{tick:.1f}' for tick in np.arange(2.5, 4.1, 0.5)])
-
+# Average the sum to get Lyapunov exponents and plot
+ax2.plot(r_values, lyapunov / iterations, 'k', alpha=0.9, c='tab:blue')
+ax2.set_xlabel(r"$r$")
+ax2.set_ylabel("Lyapunov exponent")
 ax2.grid(True)
 fig2.tight_layout()
 plt.show()
+
+
+def lorenz_system(t, state, sigma=10.0, rho=28.0, beta=8.0/3.0):
+    """
+    Compute the derivative of the Lorenz system at a given state.
+    """
+    x, y, z = state
+    return [sigma * (y - x), x * (rho - z) - y, x * y - beta * z]
+
+def lorenz_jacobian(x, y, z, sigma=10.0, rho=28.0, beta=8.0/3.0):
+    """
+    Compute the Jacobian of the Lorenz system at a given state.
+    """
+    return np.array([[-sigma, sigma, 0],
+                     [rho - z, -1, -x],
+                     [y, x, -beta]])
+
+
+def compute_lorenz_lyapunov_exponents_e(sigma=10.0, rho=28.0, beta=8.0/3.0, 
+                                   t_final=100.0, dt=0.01, x0=0.1, y0=0.1, z0=0.1):
+    """
+    Computes the Lyapunov exponents of Lorenz system over time
+    """
+    # Initialize state and tangent space vectors
+    state = np.zeros(12)  # [x, y, z, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z]
+    state[:3] = [x0, y0, z0]
+    state[3:6] = [1, 0, 0]   # v1 initial
+    state[6:9] = [0, 1, 0]   # v2 initial
+    state[9:12] = [0, 0, 1]  # v3 initial
+    
+    # Time points
+    t_eval = np.arange(0, t_final, dt)
+    num_steps = len(t_eval)
+    
+    # Arrays to store Lyapunov exponents
+    lyap1_vals = np.zeros(num_steps)
+    lyap2_vals = np.zeros(num_steps)
+    lyap3_vals = np.zeros(num_steps)
+    
+    sum_log1, sum_log2, sum_log3 = 0.0, 0.0, 0.0
+    
+    # Function for integrating the extended system
+    def extended_lorenz(t, state):
+        x, y, z = state[:3]
+        
+        # Main system derivatives
+        dxyz = lorenz_system(t, state[:3], sigma, rho, beta)
+        
+        # Jacobian for tangent space evolution
+        J = lorenz_jacobian(x, y, z, sigma, rho, beta)
+        
+        # Evolve tangent vectors
+        v1 = state[3:6].reshape(3, 1)
+        v2 = state[6:9].reshape(3, 1)
+        v3 = state[9:12].reshape(3, 1)
+        
+        dv1 = (J @ v1).flatten()
+        dv2 = (J @ v2).flatten()
+        dv3 = (J @ v3).flatten()
+        
+        return np.concatenate([dxyz, dv1, dv2, dv3])
+    
+    # Initial state
+    current_state = state.copy()
+    
+    # Evolve system and compute Lyapunov exponents
+    for i in range(num_steps):
+        # Integrate for one step
+        sol = solve_ivp(extended_lorenz, [t_eval[i], t_eval[i] + dt], 
+                         current_state, method='RK45', t_eval=[t_eval[i] + dt])
+        
+        current_state = sol.y[:, -1]
+        
+        # Extract tangent vectors
+        v1 = current_state[3:6].reshape(-1, 1)
+        v2 = current_state[6:9].reshape(-1, 1)
+        v3 = current_state[9:12].reshape(-1, 1)
+        
+        # QR decomposition
+        Q, R = np.linalg.qr(np.hstack([v1, v2, v3]))
+        
+        # Update exponents
+        sum_log1 += np.log(abs(R[0, 0]))
+        sum_log2 += np.log(abs(R[1, 1]))
+        sum_log3 += np.log(abs(R[2, 2]))
+        
+        # Reorthonormalise
+        current_state[3:6] = Q[:, 0]
+        current_state[6:9] = Q[:, 1]
+        current_state[9:12] = Q[:, 2]
+        
+        # Store running averages
+        lyap1_vals[i] = sum_log1 / (i + 1) / dt
+        lyap2_vals[i] = sum_log2 / (i + 1) / dt
+        lyap3_vals[i] = sum_log3 / (i + 1) / dt
+    
+    return t_eval, lyap1_vals, lyap2_vals, lyap3_vals
+
+# Compute and plot the Lyapunov exponents
+t, l1, l2, l3 = compute_lorenz_lyapunov_exponents_e(t_final=1000.0, dt=0.01)
+
+plt.figure(figsize=(10, 6))
+plt.plot(t, l1, label=r'$\lambda_1$')
+plt.plot(t, l2, label=r'$\lambda_2$')
+plt.plot(t, l3, label=r'$\lambda_3$')
+plt.xlabel('Time')
+plt.ylabel('Lyapunov Exponent (bits/time)')
+plt.title('Lorenz System Lyapunov Exponents')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+print("Lyapunov exponents base e:", l1[-1], l2[-1], l3[-1])
 \end{lstlisting}

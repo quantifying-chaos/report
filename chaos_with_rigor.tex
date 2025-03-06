@@ -1,57 +1,57 @@
-This chapter aims to remedy the loose and unrigourous use of chaos so far in this report by giving precise definitions and proof for important theorems using tools in topology and analysis.
+This chapter aims to remedy the loose and unrigorous use of the term chaos so far in this report by giving precise definitions and proofs for important theorems using tools in topology and analysis.
 
 \section{Basic Concepts in One-Dimensional Dynamics}
 
 Our first definition is the fixed point.
 
 \begin{defn}[Fixed Point]
-	Assuming we have an iterated dynamical system $x_{i+1} = f(x_i)$, a fixed point of $f$ is a point $x^*$ such that $f(x^*) = x^*$. 
+	Assuming we have an one-dimensional iterated dynamical system $x_{i+1} = f(x_i)$, a fixed point of $f$ is a point $x^*$ such that $f(x^*) = x^*$. 
 	That is, fixed points are solutions to the equation $f(x) = x$.
 \end{defn}
 
 Fixed points are like sinks in the dynamical system. 
-If, for some $c$, there exists an $n$ such that $f^n(c) = x^*$, $c$ will stay at $x^*$ forever. 
+If, for some $c$, there exists an $n$ such that $f^n(c) = x^*$, $c$ will stay at $x^*$ forever. (Here $f^n$ denotes composition of $f$ $n$ times.) 
 Our intuition tells us that the fixed points shall determine, at least in parts, the properties of the dynamical system.
-Indeed, for some dynamical system $f(x) = x$ for all $x \in I$, where $I$ is some interval, what takes place in that interval would not be so interesting.
+Indeed, if $f(x) = x$ for all $x \in I$, where $I$ is some interval, what takes place in that interval would not be so interesting.
 
 Many interesting dynamical systems have infinitely many fixed points, but the set of fixed points is of measure zero, meaning if picking any point in the interval at random, there is a zero chance that it is a fixed point.
 Two traditional examples for a set of measure zero are rational points and the Cantor set on the real axis. 
 
-Given a fixed point, it is natural to ask what are the behaviours of the dynamical system nearby it.
+Given a fixed point, it is natural to ask what are the behaviours of points nearby it.
 Will nearby points converge to it, or diverge from it?
 It turns out both are simplifications, and the proper description of the behaviour is that it will either be a \emph{stable} fixed point or an \emph{unstable} one. 
 
 Here is the rigorous definition of stability, attributed to the renowned Russian mathematician Aleksandr Mikhailovich Lyapunov \cite{lyapunov}.
 
 \begin{defn}[Stable fixed point]
-A fixed point $x^*$ is stable if for all $\epsilon$ there exists a $\delta$ such that 
+A fixed point $x^*$ is stable if for all $\epsilon>0,$ there exists a $\delta>0$ such that 
 $$
 	|f^n(x) - f^n(x^*)| < \epsilon \text{ for } n = 1,2, \cdots 
 $$
 whenever $|x - x^*| < \delta$.
-Here $f^n$ denotes the composition of $f$ $n$ times.
+Here, $f^n$ denotes the composition of $f$ $n$ times.
 \end{defn}
 
 The intuition for the definition is that if $x$ is close enough to a stable fixed point $x^*$, it will stay close to it forever. 
-It does not imply, however, all $x$ close to $x^*$ will converge to it.
-The classical example for 1-dimension case is the identity map $f(x) = x$. 
-All points are stable fixed points, but no points in a neighbourhood of the fixed point converges to it, except itself.
+It does not imply, however, that all $x$ close to $x^*$ will converge to it.
+The classical example for the one-dimensional case is the identity map $f(x) = x$. 
+All points are stable fixed points, but no points in a neighbourhood of the fixed point converge to it, except itself.
 
 Considering the above example, we can define a stronger sense of stability called asymptotic stability.
 
 \begin{defn}[Asymptotic Stability]
-	A fixed point $x^*$ is asymptotically stable if it is stable and there exists a $\delta$ such that 
+	A fixed point $x^*$ is asymptotically stable if it is stable and there exists a $\delta>0$ such that 
 	$$
-		\lim_{n \rightarrow \infty} f^n(x) = x^* \text{ whenever } |x - x^*| < \delta
+		\lim_{n \rightarrow \infty} f^n(x) = x^* \text{ whenever } |x - x^*| < \delta.
 	$$
 \end{defn}
 
 Upon settlement of this definition, the following theorem is immediate.
 
 \begin{thm}[Stable and unstable fixed point]\label{th:_stable_unstable_fixed_point}
-	If $x^*$ is a fixed point of a twice-differentiable function $f$, and $|f'(x^*)| < 1$, then $x^*$ is an asymptotic stable fixed point.
-	If $|f'(x^*)| > 1$, $x^*$ is unstable.
-	If $|f'(x^*)| = 0$, $x^*$ may be stable or unstable.
+	If $x^*$ is a fixed point of a twice-differentiable function $f$, and $|f'(x^*)| < 1$, then $x^*$ is an asymptotically stable fixed point.
+	If $|f'(x^*)| > 1$, then $x^*$ is unstable.
+	If $|f'(x^*)| = 0$, then $x^*$ may be stable or unstable.
 \end{thm}
 
 \begin{figure}
@@ -64,19 +64,19 @@ Upon settlement of this definition, the following theorem is immediate.
 \end{figure}
 
 Figure \ref{fig:stable and unstable fixed point} is an illustration of this theorem.
-To prove this theorem is a regular exercise using Taylor expansion. 
+Proving this theorem is a regular exercise using Taylor expansion. 
 
 Assume $x^*$ is a fixed point of the iterated map $f$, whose Taylor expansion is
 $$f(x) = f(x^*) + f'(x^*) (x - x^*) + O(x^2).$$
 
-For any $\delta$, evaluate $f(x^* + \delta)$.
+For any $\delta>0$, let us evaluate $f(x^* + \delta)$.
 Since $x^*$ is a fixed point,
  $f(x^*) = x^*$, and
  $f(x^* + \delta) - f(x^*) = f'(x^*) \delta + O(x^2)$. 
-For small enough $\delta$ we can ignore all the terms of degree higher than $2$, and the above equation states $x^*+ \delta$ will eventually converge to $x^*$ if $|f'(x^*)| < 1$, and diverge if $|f'(x^*)| > 1$.
+For small enough $\delta,$ we can ignore all terms of degree higher than $2$, and the above equation states $x^*+ \delta$ will eventually converge to $x^*$ if $|f'(x^*)| < 1$, and diverge if $|f'(x^*)| > 1$.
 
-This theorem, though simple, is powerful and is a fundamental part for any rigorous approach of iterated dynamical systems and is also used multiple times in this report (such as in the proof of Observation \ref{th:logistic_bifurcation}). 
-As a result, hereby we give another proof using only the classic mean value theorem and $\epsilon-\delta$ definition of limit.
+This theorem, though simple, is powerful and is a fundamental part of any rigorous approach to iterated dynamical systems, and is also used multiple times in this report, such as in the proof of Observation \ref{th:logistic_bifurcation}. 
+As a result, we give another proof using only the classic mean value theorem and $\epsilon-\delta$ definition of limit.
 
 \begin{proof}[Proof of Theorem \ref{th:_stable_unstable_fixed_point}]
 	Without loss of any generality we can assume that the stable fixed point is $0$, meaning $f(0) = 0$. 
@@ -93,7 +93,7 @@ As a result, hereby we give another proof using only the classic mean value theo
 	Otherwise, the function $f$ will be overall decreasing in the interval $(a, 0)$, and by mean value theorem there will be a point $a^*$ such that $a < a^* < 0$ and $f'(a^*) = \frac{f(a) - f(0)}{a - 0} = \frac{f(a)}{a} < 0$, which is impossible.
 
 	Since $f(a) < 0$, we can further shows that $f(a) > a$. 
-	If $f(a) < a$ by mean value theorem there is some point $a^* \in (a, 0)$ such that $f'(a^*) = \frac{f(a) - f(0)}{a - 0} = \frac{f(a)}{a} > 1$, which also impossible.
+	If $f(a) \leq a$ by mean value theorem there is some point $a^* \in (a, 0)$ such that $f'(a^*) = \frac{f(a) - f(0)}{a - 0} = \frac{f(a)}{a} \geq 1$, which also impossible.
 
 	As a result the sequence $a, f(a), f^2(a), \cdots$ is monotonically increasing and bounded above by $0$, and by the completeness of the real number it must converge to some number. 
 	Assuming it converges to $l < 0$. 
@@ -110,13 +110,13 @@ As a result, hereby we give another proof using only the classic mean value theo
 \end{proof}
 
 This theorem does not apply if the derivative of a function at a fixed point is $\pm 1$.
-If such is the case the fixed point may be stable or unstable, or it may exhibit more interesting behaviors.
-For example, the function $f(x) = e^x - 1$ has a fixed point at $0$.
+If such is the case, the fixed point may be stable or unstable, or it may exhibit more interesting behaviours.
+For example, the function $f(x) = e^x - 1$ has a fixed point at $0$ and $f'(0) = 1$.
 All $x$ smaller than $0$ will converge to $0$ upon iterations, while all $x$ larger than $0$ will diverge to infinity.
 
 \section{Devaney's Definition of Chaos}
 
-We have used the term chaotic serveral times in this report without rigorous definition. 
+We have used the term chaotic several times in this report without rigorous definition. 
 In this session we will settle this problem.
 
 One intuition is that every point in the chaotic system can be ``mixed'' with any other point after some time interval. 
@@ -124,31 +124,26 @@ This is captured by topological transitivity.
 \begin{defn}[Topologically Transitive]
 	Let $J$ be a set with a topology.
 	The function $f: J \rightarrow J$ is topologically transitive if, for all non-empty open sets $U_1, U_2 \in J$, there exist $k \in \bb{N}$ such that $f^k(U_1) \cap U_2 \neq \varnothing$. 
-	Here $f^k$ denotes the composition $\underbrace{f \circ f \cdots \circ f}_{k \text{ times}}$
 \end{defn}
 
-The second intuition for chaos is that a small change in the initial condition can lead to a large change in the final condition. 
-Lyapunov exponent is a quantitative measure of this, but here we present another analytical definition, which is sensitive dependence on initial condition. This term is coined by Ruelle \cite{Ruelle-1978}.
+The second intuition for chaos is that a small change in the initial conditions can lead to large changes in the outcome of a dynamical system. 
+Lyapunov exponent is a quantitative measure of this, but here we present another analytical definition, which is sensitive dependence on initial conditions. This term is coined by Ruelle \cite{Ruelle-1978}.
 \begin{defn}[Sensitive Dependence on Initial Conditions]
 	Let $J$ be a metric space with the metric $d: J \times J \rightarrow \bb{R}$. The function
-	$f: J \rightarrow J$ has a sensitive dependence on initial conditions if there exists some $\delta > 0$ such that for all $x \in J$ and any neighbourhood $X$ containing $x$, there exists $y \in X$ and $n \in \bb{N}$ such that $d(f^n(x), f^n(y)) > \delta$.
+	$f: J \rightarrow J$ has a sensitive dependence on initial conditions if there exists some $\delta > 0$ such that, for all $x \in J$ and any neighbourhood $X$ containing $x$, there exist $y \in X$ and $n \in \bb{N}$ such that $d(f^n(x), f^n(y)) > \delta$.
 \end{defn}
 
 Maybe the most striking fact about chaotic systems is that, although seemingly chaotic, some order still remains.
 Since chaos tends to mix all points together, it is natural that some points will return to their original position after certain iterations.
-Although we may simply decree that periodic points are infinite, using topology we can state a stronger and more precise definition, that is, the periodic points are dense.
-
-Of course, a point $x$ is a period of period $k$ if $f^k(x)=x$, and dense here is in sense of topology.
-
-Therefore, we have arrived at the following definition.
+Although we may simply decree that periodic points are infinite, using topology we can state a stronger and more precise definition, that is, the periodic points are dense. Here, a point $x$ is \textit{periodic} of period $k$ if $f^k(x)=x$ for some $k\in\mathbb{N}$, and \textit{dense} is in the sense of topology. We arrive at the following definition.
 
 \begin{defn}[Chaos, Devaney's Definition]\label{def:Devaney_definition_for_chaos}
 	Let $V$ be a metric space.
-	A function $f: V \rightarrow V$ is chaotic if
+	A function $f: V \rightarrow V$ is chaotic if:
 	\begin{enumerate}
-		\item the set of periodic points are dense in $V$, and
-		\item $f$ is topologically transitive,
-		\item $f$ has sensitive dependence on initial condition. 
+		\item the set of periodic points are dense in $V$;
+		\item $f$ is topologically transitive; and,
+		\item $f$ has sensitive dependence on initial conditions. 
 	\end{enumerate}
 	
 \end{defn}
@@ -156,34 +151,30 @@ Therefore, we have arrived at the following definition.
 
 The definition here is attributed to Devaney \cite{Devaney_green_book_chaos_definition}. 
 The first two requirements are purely topological, while the last one requires a metric. 
-While in most circumstances topological properties are more generalised than the metric properties, here, surprisingly, as long as $V$ is a metric space (which is part of the assumption), the first two implies the third\cite{Banks}. 
+While in most circumstances topological properties are more generalised than the metric properties, here, surprisingly, as long as $V$ is a metric space (which is part of the assumption), the first two imply the third\cite{Banks}. 
 As a result, we only need to check the first two conditions to determine if a function is chaotic.
 
-\begin{thm}[Criterion For Chaotic Function]
+\begin{thm}[Criterion for Chaotic Functions]
 	Let $V$ be a metric space. 
-	Function $f: V \rightarrow V$ is chaotic as defined in \ref{def:Devaney_definition_for_chaos}
-	if and only if its the periodic points are dense $V$ and it is topologically transitive,
+	A function $f: V \rightarrow V$ is chaotic (as defined in Theorem \ref{def:Devaney_definition_for_chaos})
+	if and only if its periodic points are dense in $V$ and it is topologically transitive.
 \end{thm}
 
-% TODO: Say more about doubling map. 
-% TODO: graph, say more in introduction, etc?
-% The doubling map is topologically transitive to the map in $S^1$
-
 \begin{example}\label{ex_doubling_map}
-	Recall the doubling map $f: [0,1) \rightarrow [0,1)$
+	Recall the doubling map $f: [0,1) \rightarrow [0,1)$, defined as
 	\begin{equation}\label{eq:doubling_map}
 	f(x) = 
 		\begin{cases}
 			2x &\text{ if } 2x < 1 \\
-			2x -1 &\text{ if } 2x > 1
+			2x -1 &\text{ if } 2x > 1.
 		\end{cases}
 	\end{equation}
 	% TODO: more explanation
-	This map can also be regarded as doubling the angles on the unit cycle: $g: S^1 \rightarrow S^1$ given by $ g(\theta) = 2 \theta$.
+	This map can also be regarded as doubling the angles on the unit circle, i.e., the map $g: S^1 \rightarrow S^1$ given by $ g(\theta) = 2 \theta$.
 	
-	The doubling map is \textit{chaotic}.
+	We show that the doubling map is \textit{chaotic}.
 
-	All non-zero rational points $\frac{p}{q} \in [0,1)$ with odd denominator are periodic points for $f$. 
+	First, we show that the map's periodic points are dense in $[0,1)$. All non-zero rational points $\frac{p}{q} \in [0,1)$ with odd denominator are periodic points for $f$. 
 	The set of these points are dense.
 	To show the periodicity, note the images of $\frac{p}{q}$ under repetitive applications of $f$ are $\frac{p}{q}, \frac{2p}{q}, \cdots, \frac{2^k p}{q}, \cdots$.
 	We can regard all the numerators as the equivalence classes modulo $q$.
@@ -198,41 +189,40 @@ As a result, we only need to check the first two conditions to determine if a fu
 	To show $f$ is topologically transitive is even easier. 
 	For any non-empty open set $U \in [0,1)$, by definition there exists an open interval $J = (x, x+ \delta) \subseteq U$. 
 	$J$ has diameter $\delta$, $f(J)$ has diameter $2 \delta$, and $f^k(J)$, $2^k \delta$. 
-	Since the length of $[0,1)$ is $1$, after some finite iteration $f^k(J)$ would covers all of $[0,1)$ and intersect any other open sets.
+	Since the length of $[0,1)$ is $1$, after some finite iteration $f^k(J)$ would cover all of $[0,1)$ and intersect any other open sets.
 
-	By generalising this proof it is clear any maps in the form 
+	By generalising this proof, it is clear any maps in the form 
 	$$
-	g: S^1 \rightarrow S^1; g(\theta) = r \theta, r \in R
+	g: S^1 \rightarrow S^1; g(\theta) = r \theta, r \in \mathbb{R}
 	$$
 	are chaotic.
 \end{example}
 
 \section{Topological Conjugacy}
 
-To prove the doubling map is chaotic is a gentle exercise. 
+To prove that the doubling map is chaotic is a gentle exercise. 
 To directly find the points of periodicity and prove that a general function is topologically transitive is difficult.
 Instead, we can circumvent these challenges by exploiting topological conjugacy.
 
 \begin{defn}[Topological Conjugacy]
-Funcitons $f: X \rightarrow X$, $g:  Y \rightarrow Y$ are topologically conjugate if there exist a homeomorphism $\phi: X \rightarrow Y$ such that 
+Functions $f: X \rightarrow X$ and $g:  Y \rightarrow Y$ are topologically conjugate if there exists a homeomorphism $\phi: X \rightarrow Y$ such that 
 $\phi \circ f = g \circ \phi$,
-i.e, the following diagram commutes.
+i.e., such that the diagram,
 \begin{center}
     \begin{tikzcd}
         X \arrow[r, "f"] \arrow[d, "\phi" swap] & X \arrow[d, "\phi"] \\
         Y \arrow[r, "g"] & Y
     \end{tikzcd}
 \end{center}
-
-The maps $f,g$ are semiconjugate if there exists a continuous surjection, $\psi$ such that $\psi \circ f = g \circ \psi$.
+commutes. The maps $f$ and $g$ are semiconjugate if there exists a continuous surjection, $\psi$ such that $\psi \circ f = g \circ \psi$.
 \end{defn}
 
 
 To rephrase the definition, $f $ and $g$ are conjugate if there exists a homeomorphism $\phi$ such that $f = \phi^{-1} \circ g \circ \phi$.
-So $f^{n} = \phi^{-1} \circ g^{n} \circ \phi$; that is $f^n$ is conjugate to $g^n$.
+So $f^{n} = \phi^{-1} \circ g^{n} \circ \phi$; that is, $f^n$ is conjugate to $g^n$.
 
 Topological conjugacy is an equivalence condition. 
-Function $f$ is conjugate to itself by the identity map. 
+A function $f$ is conjugate to itself by the identity map. 
 $\phi \circ f = g \circ \phi$ implies $f \circ \phi^{-1} = \phi^{-1} \circ g$, so $g$ is also conjugate to $f$.
 At last we need to prove transitivity, which is illustrated in the following scheme.
 \begin{center}
@@ -242,7 +232,7 @@ At last we need to prove transitivity, which is illustrated in the following sch
         Z \arrow[r, "h"] & Z \\
     \end{tikzcd}
 \end{center}
-If $f$  is conjugate to $g$ via $\phi$, and $g$ is conjugate to $h$ via $\phi'$, $\phi' \circ \phi \circ f = \phi' g \circ \phi = h \circ \phi'' $, which means $f$ is conjugate to $h$ via $h' \circ h$. 
+If $f$  is conjugate to $g$ via $\phi$, and $g$ is conjugate to $h$ via $\phi'$, $\phi' \circ \phi \circ f = \phi' \circ g \circ \phi = h \circ \phi' \circ \phi $, which means $f$ is conjugate to $h$ via $\phi' \circ \phi$. 
 
 
 
@@ -261,8 +251,8 @@ However, if $f$ is semiconjugate to $g$ and $g$ is semiconjugate to $f$, $f$ is 
 Chaotic behaviours are \emph{preserved} by conjugacy.
 
 
-\begin{thm}[Semiconjugacy preserves Chaos]\label{th_semicong_chaos}
-	If $f$ is semiconjugate to $g$ and $f$ is chaotic, $g$ also is.
+\begin{thm}[Semiconjugacy Preserves Chaos]\label{th_semicong_chaos}
+	If $f$ is semiconjugate to $g$ and $f$ is chaotic, then $g$ is too.
 \end{thm}
 % TODO: can g chaotic implies f also is if f is semiconjugate to g?
 % FIND counter example
@@ -270,18 +260,18 @@ Chaotic behaviours are \emph{preserved} by conjugacy.
 \begin{proof}
 	Let $f: X \rightarrow X$, $g:  Y \rightarrow Y$, and let $\psi$ be the promised continuous surjection $X \rightarrow Y$ such that
 	$\psi \circ f = g \circ \psi$. 
-	Since $\psi$ is conituously surjective, for any non-empty open set $M \in Y$, $\psi^{-1}(M)$ is an non-empty open set in $X$.
+	Since $\psi$ is continuously surjective, for any non-empty open set $M \in Y$, $\psi^{-1}(M)$ is a non-empty open set in $X$.
 
 	Let us first prove that the set of periodic points of $g$ is dense.
 	For any $x$ such that $f^k(x) = x$, notice that $g^k \circ \psi (x) = \psi \circ f^k (x) = \psi(x)$. 
-	This means, if the set of periodic points of $f$ is $X$, $\psi(X)$ is a subset of the set of periodic point of $g$.
+	This means, if the set of periodic points of $f$ is $X$, $\psi(X)$ is a subset of the set of periodic points of $g$.
 
-	For the sake of contradiction assuming $\psi(X)$ is not dense in $Y$. 
-	This means there is a open set $M \subset Y$ such that $M \cup \psi(X) = \emptyset$.
-	The preimage $\psi^{-1}(M)$ is an non-empty open set of $X$, and by assumption, it does not contains any periodic points of $f$, which is a contradiction.
+	For the sake of contradiction, assume $\psi(X)$ is not dense in $Y$. 
+	This means there is an open set $M \subset Y$ such that $M \cup \psi(X) = \emptyset$.
+	The preimage $\psi^{-1}(M)$ is a non-empty open set of $X$, and by assumption, it does not contain any periodic points of $f$, which is a contradiction.
 
-	To prove that $g$ is topologically transitive, consider any non-empty open set $M, N \in Y$, and $\psi^{-1}(M), \psi^{-1}(N)$ are non-empty open set in $X$. 
-	By assumption there exists some $k$ such that $f^k(\psi^{-1}(M)) \cap f^k(\psi^{-1}(N)) \neq \emptyset$, this means 
+	To prove that $g$ is topologically transitive, consider any non-empty open set $M, N \in Y$, and $\psi^{-1}(M), \psi^{-1}(N)$ are non-empty open sets in $X$. 
+	By assumption, there exists some $k$ such that $f^k(\psi^{-1}(M)) \cap f^k(\psi^{-1}(N)) \neq \emptyset$, this means 
 	\begin{align*}
 		g^k(M) \cap g^k(N) 
 		&= \underbrace{\psi \circ f^k(\psi^{-1}(M))}_{\text{by topological semiconjugacy}} \cap \psi \circ f^k(\psi^{-1}(N)) \\
@@ -289,10 +279,10 @@ Chaotic behaviours are \emph{preserved} by conjugacy.
 	\end{align*}
 \end{proof}
 
-Since conjugacy impies semiconjugacy on both directions, we have the following important proposition.
+Since conjugacy implies semiconjugacy in both directions, we have the following important proposition.
 
-\begin{prop}[Conjugacy Class share chaotic behavior]\label{prop_conj_chaos}
-	If $f$ is conjugate to $g$, $f$ is chaotic if and only if $g$ is chaotic.
+\begin{prop}[Conjugacy classes share chaotic behaviour]\label{prop_conj_chaos}
+	If $f$ is conjugate to $g$, then $f$ is chaotic if and only if $g$ is chaotic.
 \end{prop}
 
 There are abundant examples of topological conjugacy.
@@ -320,9 +310,8 @@ There are abundant examples of topological conjugacy.
 	$g: [-\frac{\epsilon_1}{a}, \frac{\epsilon_2}{a}] \rightarrow [-\frac{\epsilon_1}{a}, \frac{\epsilon_2}{a}]$
 	where $g(x)= \frac{1}{a}(ax)$ via $\phi(x) = ax$.
 
-
 	As another concrete example, the map $f: [0,1] \rightarrow [0,1]$
-	defined as $f(x) = -4x^2 + \frac{1}{2})$,
+	defined as $f(x) = -4x^2 + \frac{1}{2}$,
 	is conjugate to 
 	$g(x): [-1, 1] \rightarrow [-1, 1]$
 	defined as $g(x) = 2x^2 - 1$
@@ -341,25 +330,25 @@ There are abundant examples of topological conjugacy.
 	
 	This map is doubling the angle of the unit circle.
 
-	$f$ is semiconjugate to $g: [-1, 1] \rightarrow [-1, 1]$ defined as $g(x) = 2x^2 - 1$ through $\cos(x)$.
+	The function $f$ is semiconjugate to $g: [-1, 1] \rightarrow [-1, 1]$ defined as $g(x) = 2x^2 - 1$ through $\cos(x)$.
 
-	Example \ref{ex_doubling_map} shows that the doubling map is chaotic, so is $g$.
+	Example \ref{ex_doubling_map} shows that, if the doubling map is chaotic, so is $g$.
 \end{example}
 
 \begin{example}\label{ex_logistic_and_doubling}
-	The above 3 examples shows that the doubling map is semiconjugate to the logistic map $L_1(x) = 4x(1-x)$.
+	The above three examples show that the doubling map is semiconjugate to the logistic map $L_1(x) = 4x(1-x)$.
 \end{example}
 
 \begin{example}\label{ex:logistic and tent}
-	The logistic map $L_1(x) = 4x(1-x)$ in the interval $[0,1]$ is topologically conjugate to the tent map defined as 
+	The logistic map $L_1(x) = 4x(1-x)$ in the interval $[0,1]$ is topologically conjugate to the tent map, defined as 
 	\begin{equation}
 		f(x) = 
 		\begin{cases}
 			2x   &\text{ if } 0<x \leq \frac{1}{2} \\ 
-			2-2x &\text{ if } \frac{1}{2} < x \leq 1
+			2-2x &\text{ if } \frac{1}{2} < x \leq 1,
 		\end{cases}
 	\end{equation}
-	via the map $h: [0,1] \rightarrow [0,1]$ defined as $h(x) = \sin^2(\frac{\pi x}{2})$.
+	via the map $h: [0,1] \rightarrow [0,1],$ defined as $h(x) = \sin^2(\frac{\pi x}{2})$.
 	This can be verified by the simple computation $L_1 \circ h = h \circ f$.
 
 	Since $L_1$ is chaotic, so is the tent map.

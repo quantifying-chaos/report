@@ -9,16 +9,17 @@
 \input{abstract.tex}
 \declaration
 \dedication{Musa mihi causas memora ...\\
-	Muse, tell me the cause ...
+	Muse, tell me the causes ...
 }
 
 \tableofcontents
 \newpage
 \pagenumbering{arabic}
 
-\addcontentsline{toc}{chapter}{Introduction}
+% \addcontentsline{toc}{chapter}{Introduction}
 \chapter*{Introduction}
-\input{Introduction(Luc's version)}
+\addcontentsline{toc}{chapter}{Introduction}
+\input{Introduction}
 
 \chapter{Lyapunov Exponents}
 \input{Lyapunov exponents}
@@ -31,17 +32,20 @@
 \chapter{Bifurcations in Discrete Dynamical Systems}\label{chapter:bifurcation}
 \input{logistic_map.tex}
 
-\chapter{Feiganbaum Theory of Scaling}
+\chapter{Feiganbaum's Theory of Scaling}
 \input{Universailty.tex}
 
-
-\addcontentsline{toc}{chapter}{Conclusion}
+% \addcontentsline{toc}{chapter}{Conclusion}
 \chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
 \input{Conclusion.tex}
 
-\addcontentsline{toc}{chapter}{Acknowledgement}
 \chapter*{Acknowledgement}
-We thank sincerely our supervisor Prof Jacques Vanneste, without whose support and guidance this report would have been impossible.
+\addcontentsline{toc}{chapter}{Acknowledgement}
+We sincerely thank our supervisor Prof. Jacques Vanneste, without whose support and guidance this report would have been impossible.
+% \bibliographystyle{...} 
+\printbibliography
+\addcontentsline{toc}{chapter}{Bibliography}
 
 \begin{appendices}
 	\chapter{Numerical Calculations for Point of Super-stability}
@@ -53,8 +57,5 @@ We thank sincerely our supervisor Prof Jacques Vanneste, without whose support a
     \chapter{Box-Counting Method in Python}
     \input{box_counting_code}
 \end{appendices}
-
-% \bibliographystyle{...} 
-\printbibliography
-\addcontentsline{toc}{chapter}{Bibliography}
 \end{document}
+
