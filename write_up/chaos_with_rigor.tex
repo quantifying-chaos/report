@@ -1,4 +1,4 @@
-This chapter aims to remedy the loose and unrigorous use of the term chaos so far in this report by giving precise definitions and proofs for important theorems using tools in topology and analysis.
+This chapter aims to remedy the loose and unrigorous use of the term chaos so far in this report by giving precise definitions and proofs for important theorems using tools in topology and analysis. These tools will allow us to delve deeper into our study and with greater precision.
 
 \section{Basic Concepts in One-Dimensional Dynamics}
 
@@ -11,7 +11,7 @@ Our first definition is the fixed point.
 
 Fixed points are like sinks in the dynamical system. 
 If, for some $c$, there exists an $n$ such that $f^n(c) = x^*$, $c$ will stay at $x^*$ forever. (Here $f^n$ denotes composition of $f$ $n$ times.) 
-Our intuition tells us that the fixed points shall determine, at least in parts, the properties of the dynamical system.
+Our initial hypothesis is that the fixed points shall determine, at least in parts, the properties of the dynamical system.
 Indeed, if $f(x) = x$ for all $x \in I$, where $I$ is some interval, what takes place in that interval would not be so interesting.
 
 Many interesting dynamical systems have infinitely many fixed points, but the set of fixed points is of measure zero, meaning if picking any point in the interval at random, there is a zero chance that it is a fixed point.
@@ -21,7 +21,7 @@ Given a fixed point, it is natural to ask what are the behaviours of points near
 Will nearby points converge to it, or diverge from it?
 It turns out both are simplifications, and the proper description of the behaviour is that it will either be a \emph{stable} fixed point or an \emph{unstable} one. 
 
-Here is the rigorous definition of stability, attributed to the renowned Russian mathematician Aleksandr Mikhailovich Lyapunov \cite{lyapunov}.
+Here is the rigorous definition of stability, attributed to the renowned Russian mathematician Lyapunov \cite{lyapunov}.
 
 \begin{defn}[Stable fixed point]
 A fixed point $x^*$ is stable if for all $\epsilon>0,$ there exists a $\delta>0$ such that 
@@ -353,3 +353,5 @@ There are abundant examples of topological conjugacy.
 
 	Since $L_1$ is chaotic, so is the tent map.
 \end{example}
+
+In this section, we have built tools to begin to show that a wide class of dynamical systems not only share similar properties, but are connected by them. This idea correlates to that of the following sections, in which we investigate universal properties of this class of systems.

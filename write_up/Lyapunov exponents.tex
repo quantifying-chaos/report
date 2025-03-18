@@ -5,10 +5,12 @@ With the assumption that the distance of nearby points increases exponentially, 
 \begin{align}\label{eq:lyapunov_exponent}
     \left|F^n(x_0+\epsilon)-F^n(x_0)\right| \sim \epsilon e^{n \lambda}, \text{ as } n \rightarrow \infty,
 \end{align}
-where $\lambda$ is the \emph{Lyapunov exponent} \cite{nonlinear_system}\cite{lyapunov} and $x_0$ is the point at discrete time $0$.
+where $\lambda$ is the \emph{Lyapunov exponent} \cite{nonlinear_system}\cite{lyapunov}, $x_0$ is the point at discrete time $0$, and $F^n$ denotes composition of $F$ $n$ times.
 
-A positive $\lambda$ means nearby points of $x_0$ will move away from it as time progresses, and a negative $\lambda$ means nearby points will converge to it. 
-The absolute value of $\lambda$ represents the rate of divergence or convergence.
+A positive $\lambda$ means nearby points of $x_0$ will move away from it as time progresses, and a negative $\lambda$ means nearby points will converge to it.
+The absolute value of $\lambda$ represents the rate of divergence or convergence. 
+
+It should be clear from this that the Lyapunov exponent will play an important role throughout this report; it is a component of dynamical systems which will dictate chaotic behaviour.
 
 The existence of such $\lambda$ is not obvious, the analytical evaluation of $\lambda$ is often hopeless, and the assumption seems very questionable.
 However, if acquiescing in such a formula, $\lambda$ can be calculated numerically, giving important insights into the dynamical system. 
@@ -23,7 +25,7 @@ Taking the logarithm,
     &= \lim_{n \to \infty}\left(\frac{1}{n}\ln{\left|\frac{dF^n(x_0)}{dx}\right|}\right)  \\
     &= \lim_{N \to \infty}\left\{\frac{1}{N}\sum_{n=0}^{N-1}\ln{|F'(x_n)|}\right\}  \label{eq:lambda},
 \end{align}
-where in the last step we labelled the points $x_1 = F(x_0), x_2 = F(x_1), \dots$ and applied the chain rule.
+where in the last step $F'$ is the derivative of $F$ respective to $x$, and we labelled the points $x_1 = F(x_0), x_2 = F(x_1), \dots$ and applied the chain rule.
 All of the numerical calculations of Lyapunov exponents in this report will use \eqref{eq:lambda}.
 
 Equation \eqref{eq:lambda} fails to make sense at the points $x$ where $F'(x) = 0$.
@@ -42,7 +44,7 @@ The following are some examples of calculating Lyapunov exponents.
     \end{align}
     where $r$ is a parameter.
 	The Lyapunov exponent at $0$ is $\ln r$, which is negative if $r < 1$ and positive otherwise.
-	The higher subfigure of Figure \ref{fig:lyapunov_tent} is the bifurcation diagram of the tent map, showing its dynamical properties. 
+	The higher subfigure of Figure \ref{fig:lyapunov_tent} is the \textit{bifurcation diagram} of the tent map, which shows how the long-term trajectories of some initial $x_0$ change as we vary the parameter $r$. 
 	It is obtained by selecting $1,000$ equally spaced $r \in [0,2]$, and for each $r$ picking a random starting point $x_0$, iterating $x_0$ for $10,000$ times, ignoring the first $1,000$ iterations, and plotting the rest of the $9,000$ $ x_i$ as a faint blue dot at coordinate $(r, x_i)$. 
 	There is a dramatic change in behaviour exactly at $r=1$, where the Lyapunov exponent changed from negative to positive.
     For $r < 1$ every $x_0$ converged to $0$, whereas afterwards the system shows an apparent chaotic behaviour by casting an interesting homogeneous shape of a double curved triangle. At $r = 2$, this system can be proved to be chaotic as will be shown in Example \ref{ex:logistic and tent}.
@@ -68,14 +70,14 @@ The following are some examples of calculating Lyapunov exponents.
         \caption{Bifurcation diagram (above) and Lyapunov exponent plot (below) for the map $F(\lambda,x)=x^2+r$ over 50,000 iterations.}
         \label{fig:lyapunov_x^2}
     \end{figure}
-	A very interesting phenomenon of periodic doubling is apparent from the bifurcation diagram (which is studied in detail in Chapter \ref{chapter:bifurcation}).
+	A very interesting phenomenon of period-doubling is apparent from the bifurcation diagram (which is studied in detail in Chapter \ref{chapter:bifurcation}).
 	Similar to the tent map, regions where the Lyapunov exponent is negative correspond to distinct lines in the bifurcation diagram, while those with a positive Lyapunov exponent correspond to chaotic bands.
 \end{exmp}
 
 
 \section{Lyapunov Exponents for a Continuous Time Series}\label{LyapCts}
 
-The Lyapunov exponents for continuous time dynamical systems in multiple dimensions exhibit very different behaviours compared to the simplistic one dimensional discrete time dynamical systems discussed in the previous section. 
+The Lyapunov exponents for continuous time dynamical systems in multiple dimensions exhibit very different behaviours compared to the simplistic one-dimensional discrete time dynamical systems discussed in the previous section. 
 For continuous systems, we need to consider the complete spectrum of Lyapunov exponents. 
 Given a continuous dynamical system in an $n$-dimensional phase space, we monitor the long-term evolution of an infinitely small $n$-sphere of initial conditions. 
 It quantifies the average exponential growth or decay rates of perturbations in different directions in phase space. 
@@ -156,7 +158,7 @@ As we iterate further in time, we get more accurate values for the different Lya
 where $\lambda_1>0$, being positive, is responsible for the chaotic nature of the Lorenz system.
 %which corresponds to the chaotic nature of the Lorenz system due to $\lambda_1>0$.
 \end{exmp}
-The first crucial step of this report is now complete; we have identified the key property of dynamical systems that attributes to chaos. We may now begin to investigate quantifiable properties of chaotic dynamical systems; the Lyapunov exponent will reappear throughout this task due to its importance.
+The first crucial step of this report is now complete; we have identified the key property of dynamical systems that attributes to chaos. We may now begin to investigate further quantifiable properties of chaotic dynamical systems; the Lyapunov exponent will reappear throughout this task due to its importance.
 % Given a continuous dynamical system in an $n$-dimensional phase space, we monitor the long-term evolution of an infinitesimal $n$-sphere of initial conditions. The sphere will become an $n$-ellipsoid due to the locally deforming nature of the flow. The $i$th one-dimensional Lyapunov exponent is then defined in terms of the length of the ellipsoidal principal axis $p_i(t)$
 % \begin{align}
 %     L_i=\lim_{n \to \infty} \frac{1}{n}\log_2\frac{p_i(t)}{p_i(0)} \label{eq:continous}
